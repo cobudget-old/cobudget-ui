@@ -3,6 +3,8 @@ angular.module('controllers.buckets', [])
   $scope.comment_count = 0
   $scope.budget_id = $state.params.budget_id
 
+  console.log 'BC', $state.params.budget_id
+
   $scope._bucket = {}
   $scope.bucket = {}
 

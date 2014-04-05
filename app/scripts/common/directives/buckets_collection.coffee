@@ -14,6 +14,8 @@ angular.module("directives.buckets_collection", [])
     width = 750
     height = 600
 
+    buckets = scope.buckets
+
     svg = d3.select(element[0]).append('svg')
       .attr('width', width)
       .attr('height', height)
@@ -30,6 +32,12 @@ angular.module("directives.buckets_collection", [])
 
 
     #utils
+
+    defaultAllocationSize = (userAllocations, buckets)->
+      
+
+
+
     getBucketUserAllocation = (bucket)->
       for a in bucket.allocations
         if a.user_id == User.getCurrentUser().id
