@@ -9,6 +9,25 @@ angular.module("directives.buckets_collection", [])
 
   link: (scope, element, attrs) ->
     console.log "BUCKETS COlLECTION", scope, $state.params
+    console.log 'bwa', scope.budget_id
+
+    width = 750
+    height = 600
+
+    svg = d3.select(element[0]).append('svg')
+      .attr('width', width)
+      .attr('height', height)
+
+
+
+
+
+
+
+
+
+
+
 
     #utils
     getBucketUserAllocation = (bucket)->
@@ -71,7 +90,7 @@ angular.module("directives.buckets_collection", [])
         scope.account_balance = account.allocation_rights_cents
         scope.allocated = Budget.getUserAllocated(user_allocations)
         scope.allocatable = Budget.getUserAllocatable(scope.account_balance, scope.allocated)
-        scope.unallocated = scope.allocatable - scope.allocated 
+        scope.unallocated = scope.allocatable - scope.allocated
         addUnallocatedToUserAllocations()
         return account
       , (error)->
@@ -90,10 +109,13 @@ angular.module("directives.buckets_collection", [])
         angular.forEach scope.buckets, (bucket)->
           $rootScope.$broadcast("bucket-allocations-updated", { bucket_allocations:bucket.allocations, bucket_id: bucket.id })
 
+    console.log 'SCOPE', scope
+
+
     #scope mehods
     scope.getTotalBucketAllocations = (bucket)->
       Bucket.sumBucketAllocations(bucket)
-      
+
     #events
     scope.$on 'current-user-bucket-allocation-update', (event, data)->
       user_allocations = setUserAllocations(scope.buckets)

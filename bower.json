@@ -2,7 +2,7 @@
   "name": "try",
   "version": "0.0.0",
   "dependencies": {
-    "angular": "*",
+    "angular": "1.2.15",
     "angular-resource": "~1.2.3",
     "angular-cookies": "~1.2.3",
     "angular-sanitize": "~1.2.3",
@@ -16,8 +16,6 @@
     "sass-bootstrap": "~3.0.2",
     "showdown": "0.3.1",
     "nouislider": "~5.0.0",
-    "angularjs-nvd3-directives": "~0.0.4-beta",
-    "nvd3": "~1.1.14-beta",
     "d3": "~3.3.11",
     "angular-lodash": "*",
     "lodash": "~2.4.1",
@@ -32,5 +30,8 @@
   "devDependencies": {
     "angular-mocks": "~1.2.0",
     "angular-scenario": "~1.2.0"
+  },
+  "resolutions": {
+    "angular": "1.2.15"
   }
 }

@@ -13,12 +13,12 @@ angular.module('states.budget', ['controllers.buckets'])
       'header':
         templateUrl: '/views/budgets/budgets.header.html'
       'page':
-        templateUrl: '/views/buckets/buckets.list.html'
+        templateUrl: '/views/budgets/budget.blobs.html'
       'sidebar':
         templateUrl: '/views/budgets/budget.sidebar.html'
         controller: ['$rootScope', '$scope', '$state', 'User', 'Budget', 'Bucket', 'Account', ($rootScope, $scope, $state, User, Budget, Bucket, Account)->
           $scope.state = $state.params.state
-          $scope.chart_options = 
+          $scope.chart_options =
             segmentShowStroke : true
             segmentStrokeColor : "#fff"
             animation : false,
@@ -123,4 +123,3 @@ angular.module('states.budget', ['controllers.buckets'])
         ]
   ) #end state
 ]) #end config
-
