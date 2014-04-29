@@ -14,6 +14,11 @@ angular.module('controllers.buckets', [])
     , (error)->
       console.log error
 
+  $scope.split = ->
+
+    console.log d3.select(this)
+
+
   $scope.update = ()->
     $scope.bucket.user_id = 1
     $scope.bucket.bucket_id = $state.params.bucket_id
@@ -35,6 +40,7 @@ angular.module('controllers.buckets', [])
     , (error)->
       if error.status == 500
         flash('error', 'Error saving bucket', 2000)
+
 
 
 ]).controller('BucketItem', ['$rootScope', '$http', '$scope', '$state', 'Bucket', 'flash', 'Allocation', ($rootScope, $http, $scope, $state, Bucket, flash, Allocation)->
