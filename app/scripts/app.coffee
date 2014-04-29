@@ -45,16 +45,17 @@ app = angular.module('cobudget', [
   'directives.comments'
   'directives.tab_switcher'
 ])
-.config(["$httpProvider", '$urlRouterProvider', '$sceDelegateProvider', 'RestangularProvider', 'ENV', ($httpProvider, $urlRouterProvider, $sceDelegateProvider, RestangularProvider, ENV)->
+.config(["$httpProvider", '$urlRouterProvider', '$sceDelegateProvider', 'RestangularProvider', 'config', ($httpProvider, $urlRouterProvider, $sceDelegateProvider, RestangularProvider, config)->
   $urlRouterProvider.otherwise('/')
-  RestangularProvider.setBaseUrl(ENV.apiEndpoint)
+  RestangularProvider.setBaseUrl(config.apiEndpoint)
   RestangularProvider.setDefaultHttpFields
     withCredentials: true
 ])
-.run(["$rootScope", "$state", "$timeout", "editableOptions", "User", "ENV", ($rootScope, $state, $timeout, editableOptions, User, ENV) ->
-  #NON DEMO
-  #if _.isEmpty(User.getCurrentUser()) or !User.getCurrentUser()?
-    #$state.go 'home'
+.run(["$rootScope", "$state", "$timeout", "editableOptions", "User", "config", ($rootScope, $state, $timeout, editableOptions, User, config) ->
+  if config.environment == 'staging'
+    $state.go 'demo'
+  else if _.isEmpty(User.getCurrentUser()) or !User.getCurrentUser()?
+    $state.go 'home'
 
   #DEMO
   console.log 'state', $state.is('demo')
@@ -70,6 +71,7 @@ app = angular.module('cobudget', [
   console.log 'state2', $state.is('demo')
 
   $rootScope.$debugMode = "on"
+
   $rootScope.admin = false
 
   $rootScope.login = ->
@@ -80,23 +82,12 @@ app = angular.module('cobudget', [
   $rootScope.pusher = new Pusher('6ea7addcc0137ddf6cf0')
   $rootScope.channel = $rootScope.pusher.subscribe('cobudget')
 
-  $rootScope.toggleAdmin = ()->
-    $rootScope.admin = !$rootScope.admin
-    $rootScope.$broadcast('admin-mode-toggle', $rootScope.admin)
-
   $rootScope.$on '$stateChangeStart', (event, toState, toParams, fromState, fromParams)->
-    console.log $state.current.name
-    unless $state.is('demo')
-      unless toState == 'demo'
-        if _.isEmpty(User.getCurrentUser()) or !User.getCurrentUser()?
-          event.preventDefault()
-          $timeout ()->
-            event.currentScope.$apply ()->
-              $state.go("home")
-           , 100
-
-
-  Pusher.log = (message)-> 
-    if window.console && window.console.log
-      window.console.log(message)
+    unless $state.is('demo') && toState == 'demo'
+      if _.isEmpty(User.getCurrentUser()) or !User.getCurrentUser()?
+        event.preventDefault()
+        $timeout ()->
+          event.currentScope.$apply ()->
+            $state.go("home")
+         , 100
 ])

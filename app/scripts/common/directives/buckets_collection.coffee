@@ -32,7 +32,6 @@ angular.module("directives.buckets_collection", [])
       group = d3.select(this.parentElement.parentElement)
       blob = group.select('.bloblet')
       direction = d3.select(this).attr('class').split(' ')[1]
-      console.log direction, blob
 
       gTrans = group.attr('transform')
       transform = blob.attr('transform')
@@ -44,14 +43,11 @@ angular.module("directives.buckets_collection", [])
         transY += parseInt transform[1]
       transX += if direction is 'right' then (d.width + 5) else -5
 
-      console.log 'transX', transX
       g = d3.select('.blobG')
       spawn = g.append('g')
         .attr('id', 'spawn')
         .attr('class', 'blobletG')
         .attr('transform', gTrans)
-
-      console.log spawn
 
       spawn.append('rect')
         .attr('transform', 'translate(' +transX+ ',' +transY+ ')')
@@ -98,14 +94,9 @@ angular.module("directives.buckets_collection", [])
         .attr('width', d.scale(d.remainder))
 
     spawnSet = (d) ->
-
       spawnG = d3.select('#spawn')
-
       spawn = spawnG.select('rect')
       rectTrans = if spawn.attr('transform') then spawn.attr('transform') else 'translate(0,0)'
-
-      console.log 'rectTrans', rectTrans
-
 
       spawnData =
         amount: d.remainder
@@ -117,18 +108,10 @@ angular.module("directives.buckets_collection", [])
         rectTrans: rectTrans
         scale: d.scale
 
-      console.log 'spawnSet', d
       d.amount = d.amount - d.remainder
-      console.log 'new amount', d.amount
       d.remainder = 0
       d3.select(this.parentElement.parentElement).datum(d)
-
-
-
-      console.log spawnData
-
       blobSet(d3.select('.blobG'), spawnData)
-
       spawnG.remove()
 
     blobSet = (group, d)->
@@ -181,18 +164,13 @@ angular.module("directives.buckets_collection", [])
     move = ->
       rect = d3.select(this)
       rectTrans = rect.attr('transform')
-
       x = if rectTrans? then parseInt rectTrans[10..].split(',')[0] else 0
       y = if rectTrans? then parseInt rectTrans[10..].split(',')[1] else 0
-
       nX = x + d3.event.dx
       nY = y + d3.event.dy
-
       slider = d3.select(this.parentElement).select('.slider')
-
       rect
         .attr('transform', 'translate(' +nX+ ',' +nY+')')
-
       slider
         .attr('transform', 'translate(' +nX+ ',' +nY+')')
 
@@ -284,7 +262,6 @@ angular.module("directives.buckets_collection", [])
         promises.push Bucket.getBucketAllocations(bucket.id)
       #this respects the order we passed in so we are safe to foreach the buckets again
       $q.all(promises).then (allocations_array)->
-        console.log "ALC ARRAY", allocations_array
         buckets_with_allocations = []
         for allocations, i in allocations_array
           buckets[i].color = ColorGenerator.makeColor(0.3,0.3,0.3,0,i * 1.25,4,177,65, i)
@@ -341,12 +318,7 @@ angular.module("directives.buckets_collection", [])
           $rootScope.$broadcast("bucket-allocations-updated", { bucket_allocations:bucket.allocations, bucket_id: bucket.id })
 
       blob = setAccountBlob(scope.account_balance)
-
-
       blobSet(d3.select('.blobG'), blob)
-
-
-
       b = $('.blobG')
       $compile(b.contents())(scope)
 
@@ -368,9 +340,6 @@ angular.module("directives.buckets_collection", [])
           if bucket.id == data.bucket_id
             $rootScope.$broadcast("bucket-allocations-updated", { bucket_allocations: bucket.allocations, bucket_id: bucket.id })
             break
-
-    scope.$on 'admin-mode-toggle', (evt, data)->
-      scope.admin = data
 
     #pushers
     $rootScope.channel.bind('allocation_updated', (response) ->
@@ -399,8 +368,6 @@ angular.module("directives.buckets_collection", [])
     #)
 
     $rootScope.channel.bind('bucket_updated', (response) ->
-      console.log "PUSHER::BUCKET UPDATED"
-      console.log response
       angular.forEach scope.buckets, (old_bucket, i)->
         if old_bucket.id == response.bucket.id
           response.bucket.allocations = old_bucket.allocations
