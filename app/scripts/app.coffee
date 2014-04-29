@@ -57,6 +57,21 @@ app = angular.module('cobudget', [
   else if _.isEmpty(User.getCurrentUser()) or !User.getCurrentUser()?
     $state.go 'home'
 
+  #DEMO
+  console.log 'state', $state.is('demo')
+  console.log User.getCurrentUser()
+
+
+  if _.isEmpty(User.getCurrentUser()) or !User.getCurrentUser()?
+    console.log '1'
+    unless $state.is('demo')
+      console.log '2'
+      $state.go 'demo'
+
+  console.log 'state2', $state.is('demo')
+
+  $rootScope.$debugMode = "on"
+
   $rootScope.admin = false
 
   $rootScope.login = ->

@@ -3,6 +3,8 @@ angular.module('controllers.buckets', [])
   $scope.comment_count = 0
   $scope.budget_id = $state.params.budget_id
 
+  console.log 'BC', $state.params.budget_id
+
   $scope._bucket = {}
   $scope.bucket = {}
 
@@ -11,6 +13,11 @@ angular.module('controllers.buckets', [])
       $scope.bucket = Bucket.setMinMax(success)
     , (error)->
       console.log error
+
+  $scope.split = ->
+
+    console.log d3.select(this)
+
 
   $scope.update = ()->
     $scope.bucket.user_id = 1
@@ -33,6 +40,7 @@ angular.module('controllers.buckets', [])
     , (error)->
       if error.status == 500
         flash('error', 'Error saving bucket', 2000)
+
 
 
 ]).controller('BucketItem', ['$rootScope', '$http', '$scope', '$state', 'Bucket', 'flash', 'Allocation', ($rootScope, $http, $scope, $state, Bucket, flash, Allocation)->
