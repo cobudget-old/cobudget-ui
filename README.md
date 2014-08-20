@@ -24,7 +24,7 @@ Likewise you will need to setup production.json and staging.json for deploying t
 Install node and npm: https://github.com/joyent/node/wiki/Installation 
 
 ```
-sudo npm install
+npm install
 bower install (select angular version 1.2.21)
 ```
 
