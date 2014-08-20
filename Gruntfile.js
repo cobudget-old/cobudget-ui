@@ -20,6 +20,17 @@ module.exports = function (grunt) {
   require('time-grunt')(grunt);
 
   grunt.initConfig({
+    env: {
+      development: {
+        NODE_ENV: 'development'
+      },
+      staging: {
+        NODE_ENV: 'staging'
+      },
+      production: {
+        NODE_ENV: 'production'
+      }
+    },
     yeoman: {
       // configurable paths
       app: 'app',
@@ -334,49 +345,6 @@ module.exports = function (grunt) {
         html: ['<%= yeoman.dist %>/*.html']
       }
     },
-    //TODO Get rid of the duplication with the files arrray
-    replace: {
-      development: {
-        options: {
-          patterns: [{
-            json: grunt.file.readJSON('./config/environments/development.json')
-          }]
-        },
-        files: replace_files
-      },
-      test: {
-        options: {
-          patterns: [{
-            json: grunt.file.readJSON('./config/environments/test.json')
-          }]
-        },
-        files: replace_files 
-      },
-      travis: {
-        options: {
-          patterns: [{
-            json: grunt.file.readJSON('./config/environments/travis.json')
-          }]
-        },
-        files: replace_files 
-      },
-      staging: {
-        options: {
-          patterns: [{
-            json: grunt.file.readJSON('./config/environments/staging.json')
-          }]
-        },
-        files: replace_files
-      },
-      production: {
-        options: {
-          patterns: [{
-            json: grunt.file.readJSON('./config/environments/production.json')
-          }]
-        },
-        files: replace_files
-      }
-    },
     protractor: {
       options: {
         configFile: "config/protractor.js", 
@@ -422,8 +390,8 @@ module.exports = function (grunt) {
     }
 
     grunt.task.run([
+      'env:development',
       'clean:server',
-      'replace:development',
       'concurrent:server',
       'autoprefixer',
       'connect:livereload',
@@ -474,12 +442,12 @@ module.exports = function (grunt) {
   ]);
 
   grunt.registerTask('staging', [
-    'replace:staging',
+    'env:staging',
     'build'
   ]);
 
   grunt.registerTask('production', [
-    'replace:production',
+    'env:production',
     'build'
   ]);
 };
