@@ -25,7 +25,7 @@ Install node and npm: https://github.com/joyent/node/wiki/Installation
 
 ```
 npm install
-bower install (select angular version 1.2.21)
+npm run bower-install (select angular version 1.2.21)
 ```
 
 Install ruby 2 and bundler and run `bundle install`
