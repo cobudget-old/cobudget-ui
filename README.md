@@ -33,10 +33,10 @@ Install ruby 2 and bundler and run `bundle install`
 *Start the server:*
 
 ```
-grunt server
+npm run server
 ```
 
-To debug server startup errors `grunt server --verbose`
+To debug server startup errors `./node_modules/.bin/grunt server --verbose`
 
 *Testing*
 

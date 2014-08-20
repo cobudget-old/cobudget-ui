@@ -49,6 +49,7 @@
   },
   "scripts": {
     "test": "grunt test",
-    "bower-install": "bower install"
+    "bower-install": "bower install",
+    "server": "grunt server"
   }
 }
