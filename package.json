@@ -60,6 +60,7 @@
     "sinon": "^1.10.3",
     "sinon-chai": "^2.5.0",
     "time-grunt": "~0.2.0",
+    "uglifyify": "^2.5.0",
     "yo": "~1.1.2"
   },
   "engines": {
