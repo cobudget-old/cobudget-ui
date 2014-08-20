@@ -151,13 +151,14 @@ module.exports = function (grunt) {
     },
     browserify: {
       // TODO de-dupe files configuration
-      options: {},
       dist: {
         files: {
           'app/scripts/bundle.js': 'app/scripts/app.coffee'
         },
         options: {
-          debug: false,
+          browserifyOptions: {
+            debug: false,
+          },
           transform: [
             "coffeeify",
             "envify",
@@ -171,7 +172,9 @@ module.exports = function (grunt) {
           'app/scripts/bundle.js': 'app/scripts/app.coffee'
         },
         options: {
-          debug: true,
+          browserifyOptions: {
+            debug: true,
+          },
           watch: true,
           transform: [
             "coffeeify",
