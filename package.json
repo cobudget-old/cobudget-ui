@@ -22,7 +22,10 @@
     "browserify-shim": "^3.6.0",
     "chai": "^1.9.1",
     "chai-as-promised": "^4.1.1",
+<<<<<<< HEAD
     "coffee-script": "^1.7.1",
+    "coffeeify": "^0.7.0",
+    "envify": "^3.0.0",
     "generator-env-config": "0.0.2",
     "grunt": "~0.4.1",
     "grunt-autoprefixer": "~0.4.0",
@@ -63,6 +66,12 @@
   },
   "engines": {
     "node": ">=0.8.0"
+  },
+  "browserify": {
+    "transform": [
+      "coffeeify",
+      "envify"
+    ]
   },
   "scripts": {
     "test": "grunt test",
