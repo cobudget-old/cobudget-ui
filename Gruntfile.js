@@ -150,6 +150,7 @@ module.exports = function (grunt) {
           transform: [
             "coffeeify",
             "envify",
+            ['browserify-ngannotate', { x: '.coffee'}]
           ]
         }
       },
@@ -332,27 +333,6 @@ module.exports = function (grunt) {
         html: ['<%= yeoman.dist %>/*.html']
       }
     },
-    ngAnnotate: {
-        options: { },
-        app: {
-          files: [{
-            expand: true,
-            cwd: '.tmp/scripts',
-            src: '**/*.js',
-            dest: '.tmp/scripts'
-          }]
-        }
-    },
-    ngmin: {
-      dist: {
-        files: [{
-          expand: true,
-          cwd: '.tmp/concat/scripts',
-          src: '*.js',
-          dest: '.tmp/concat/scripts'
-        }]
-      }
-    },
     uglify: {
       dist: {
         files: {
@@ -441,7 +421,6 @@ module.exports = function (grunt) {
     }
   });
 
-  grunt.loadNpmTasks('grunt-ng-annotate');
   grunt.loadNpmTasks('grunt-replace');
   grunt.loadNpmTasks('grunt-shell');
 
@@ -487,7 +466,6 @@ module.exports = function (grunt) {
     'useminPrepare',
     'concurrent:dist',
     'autoprefixer',
-    'ngAnnotate:app',
     'browserify:dist',
     'concat',
     'copy:dist',
