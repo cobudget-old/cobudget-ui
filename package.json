@@ -67,12 +67,6 @@
   "engines": {
     "node": ">=0.8.0"
   },
-  "browserify": {
-    "transform": [
-      "coffeeify",
-      "envify"
-    ]
-  },
   "scripts": {
     "test": "grunt test",
     "bower-install": "bower install",
