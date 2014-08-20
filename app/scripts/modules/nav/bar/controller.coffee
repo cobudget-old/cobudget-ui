@@ -17,9 +17,4 @@ controller = ($location, $scope, $rootScope, $routeParams, Budget, BudgetLoader)
     else
       $scope.currentBudgetId = budgets[0].id
 
-window.Cobudget.Directives.NavBar = ->
-  {
-    restrict: 'EA'
-    templateUrl: '/scripts/directives/nav-bar/nav-bar.html'
-    controller: controller
-  }
+module.exports = controller

@@ -1,5 +1,5 @@
 `// @ngInject`
-window.Cobudget.Resources.Bucket = (Restangular) ->
+module.exports = (Restangular) ->
   #  buckets = Restangular.all('buckets')
   #
   #  setMinMax: (bucket)->

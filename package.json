@@ -13,7 +13,8 @@
     "json3": "^3.3.2",
     "lodash": "^2.4.1",
     "npm-angular-resource": "^1.3.0-build.2880",
-    "npm-angular-route": "git://github.com/ahdinosaur/npm-angular-route"
+    "npm-angular-route": "git://github.com/ahdinosaur/npm-angular-route",
+    "restangular": "^1.4.0"
   },
   "devDependencies": {
     "angular-mocks": "^1.2.22",

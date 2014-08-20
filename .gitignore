@@ -7,7 +7,6 @@ app/bower_components/
 .DS_STORE
 .idea
 app/scripts/bundle.js
-app/scripts/config/constants.coffee
 config/environments/development.json
 config/environments/staging.json
 config/environments/production.json

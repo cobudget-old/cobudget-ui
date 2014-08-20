@@ -1,5 +1,5 @@
 `// @ngInject`
-window.Cobudget.Config.Restangular = (RestangularProvider, config) ->
+module.exports = (RestangularProvider, config) ->
   RestangularProvider.setBaseUrl(config.apiEndpoint)
   RestangularProvider.setDefaultHttpFields
     withCredentials: true

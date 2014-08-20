@@ -1,12 +1,15 @@
-angular
-  .module('cobudget', ['ngRoute', 'restangular'])
-  .constant('config', window.Cobudget.Config.Constants)
-  .config(window.Cobudget.Config.Router)
-  .config(window.Cobudget.Config.Restangular)
-  .directive('bucketList', window.Cobudget.Directives.BucketList)
-  .directive('bucketSummary', window.Cobudget.Directives.BucketSummary)
-  .directive('budgetBanner', window.Cobudget.Directives.BudgetBanner)
-  .directive('navBar', window.Cobudget.Directives.NavBar)
-  .service('Budget', window.Cobudget.Resources.Budget)
-  .service('Bucket', window.Cobudget.Resources.Bucket)
-  .service('BudgetLoader', window.Cobudget.Services.BudgetLoader)
+`angular = require('angular')`
+ngRoute = require('angular-route')(window, angular)
+Restangular = require('restangular')
+
+module.exports = angular
+  .module('cobudget', [
+    "ngRoute",
+    "Restangular",
+    require('./modules/budgets/index.coffee').name,
+    require('./modules/buckets/index.coffee').name,
+    require('./modules/nav/index.coffee').name,
+  ])
+  .constant('config', require('./config/constants.coffee'))
+  .config(require('./config/restangular.coffee'))
+  .config(require('./config/routes.coffee'))

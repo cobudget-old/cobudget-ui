@@ -10,9 +10,4 @@ controller = ($rootScope, $scope, Budget) ->
 
       $scope.buckets = buckets
 
-window.Cobudget.Directives.BucketList = ->
-  {
-    restrict: 'EA'
-    templateUrl: '/scripts/directives/bucket-list/bucket-list.html'
-    controller: controller
-  }
+module.exports = controller

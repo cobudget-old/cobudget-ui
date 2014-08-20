@@ -1,5 +1,6 @@
+
 `// @ngInject`
-window.Cobudget.Resources.Budget = (Restangular) ->
+module.exports = (Restangular) ->
 
   get: (budget_id)->
     Restangular.one('budgets', budget_id).get()
