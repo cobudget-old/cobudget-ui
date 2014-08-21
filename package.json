@@ -4,17 +4,17 @@
   "dependencies": {
     "angular": "^1.2.21",
     "angular-cookies": "^1.2.19",
-    "angular-flash": "git://github.com/ahdinosaur/npm-angular-flash",
-    "angular-lodash": "git://github.com/ahdinosaur/npm-angular-lodash",
     "angular-module-sanitize": "^1.2.19",
     "angular-route": "^1.2.17-build.163.1",
     "angular-ui-router": "^0.2.10",
     "es5-shim": "^4.0.2",
     "json3": "^3.3.2",
     "lodash": "^2.4.1",
-    "npm-angular-resource": "^1.3.0-build.2880",
-    "npm-angular-route": "git://github.com/ahdinosaur/npm-angular-route",
     "restangular": "^1.4.0"
+  },
+  "napa": {
+    "angular-flash": "wmluke/angular-flash",
+    "angular-lodash": "cabrel/angular-lodash"
   },
   "devDependencies": {
     "angular-mocks": "^1.2.22",
@@ -60,6 +60,7 @@
     "load-grunt-tasks": "~0.2.0",
     "lodash": "^2.4.1",
     "mocha": "^1.21.3",
+    "napa": "^0.4.1",
     "sinon": "^1.10.3",
     "sinon-chai": "^2.5.0",
     "time-grunt": "~0.2.0",
@@ -70,6 +71,7 @@
     "node": ">=0.8.0"
   },
   "scripts": {
+    "install": "napa",
     "test": "grunt test",
     "bower-install": "bower install",
     "server": "grunt server"
