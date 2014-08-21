@@ -6,7 +6,6 @@ rvm:
 before_install: 
 - npm install -g protractor grunt-cli bower mocha
 - bundle install
-- bower install
 before_script:
 - ./bin/copy_environments_for_travis.sh
 - grunt build
