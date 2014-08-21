@@ -162,6 +162,7 @@ module.exports = function (grunt) {
           transform: [
             "coffeeify",
             "envify",
+            "brfs",
             ['browserify-ngannotate', { x: '.coffee'}],
             [{ global: true }, "uglifyify"]
           ]
@@ -178,7 +179,8 @@ module.exports = function (grunt) {
           watch: true,
           transform: [
             "coffeeify",
-            "envify"
+            "envify",
+            "brfs",
           ]
         }
       }
