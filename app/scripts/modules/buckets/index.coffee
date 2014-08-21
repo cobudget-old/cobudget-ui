@@ -2,7 +2,7 @@
 angular = require('angular')
 
 module.exports = angular.module('cobudget.buckets', [
-  "Restangular",
+  "restangular",
   require('./list/index.coffee').name,
   require('./summary/index.coffee').name,
 ])

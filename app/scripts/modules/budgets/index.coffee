@@ -2,7 +2,7 @@ angular = require('angular')
 
 module.exports = angular
   .module("cobudget.budgets", [
-    "Restangular",
+    "restangular",
     require('./banner/index.coffee').name,
   ])
   .service('BudgetLoader', require('./services/loader.coffee'))

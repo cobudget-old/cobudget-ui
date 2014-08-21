@@ -6,7 +6,7 @@ Restangular = require('restangular')
 module.exports = angular
   .module('cobudget', [
     "ngRoute",
-    "Restangular",
+    "restangular",
     require('./modules/budgets/index.coffee').name,
     require('./modules/buckets/index.coffee').name,
     require('./modules/nav/index.coffee').name,
