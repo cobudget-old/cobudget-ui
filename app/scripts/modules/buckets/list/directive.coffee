@@ -1,4 +1,5 @@
 
+`// @ngInject`
 module.exports = ->
   {
     restrict: 'EA'
