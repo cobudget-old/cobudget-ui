@@ -1,6 +1,8 @@
+fs = require('fs')
+
 `// @ngInject`
 module.exports = ->
   {
     restrict: 'EA'
-    templateUrl: '/scripts/modules/budgets/banner/template.html'
+    template: fs.readFileSync(__dirname + '/template.html').toString()
   }

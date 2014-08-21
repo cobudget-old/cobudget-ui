@@ -1,7 +1,9 @@
+fs = require('fs')
+
 `// @ngInject`
 module.exports = ->
   {
     restrict: 'EA'
-    templateUrl: '/scripts/modules/nav/bar/template.html'
+    template: fs.readFileSync(__dirname + '/template.html').toString()
     controller: 'NavBarController'
   }
