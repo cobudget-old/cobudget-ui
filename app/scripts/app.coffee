@@ -1,4 +1,5 @@
 `angular = require('angular')`
+`_ = require('lodash')`
 ngRoute = require('angular-route')
 Restangular = require('restangular')
 
