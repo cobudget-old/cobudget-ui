@@ -153,7 +153,8 @@ module.exports = function (grunt) {
       // TODO de-dupe files configuration
       dist: {
         files: {
-          'app/scripts/bundle.js': 'app/scripts/app.coffee'
+          'app/scripts/bundle.js': 'app/scripts/app.coffee',
+          'app/scripts/shim.js': 'app/scripts/shim.coffee',
         },
         options: {
           browserifyOptions: {
@@ -170,7 +171,8 @@ module.exports = function (grunt) {
       },
       development: {
         files: {
-          'app/scripts/bundle.js': 'app/scripts/app.coffee'
+          'app/scripts/bundle.js': 'app/scripts/app.coffee',
+          'app/scripts/shim.js': 'app/scripts/shim.coffee',
         },
         options: {
           browserifyOptions: {
