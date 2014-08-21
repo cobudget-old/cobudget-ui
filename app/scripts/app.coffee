@@ -1,5 +1,5 @@
 `angular = require('angular')`
-ngRoute = require('angular-route')(window, angular)
+ngRoute = require('angular-route')
 Restangular = require('restangular')
 
 module.exports = angular
