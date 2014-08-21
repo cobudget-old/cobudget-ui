@@ -52,7 +52,7 @@ module.exports = function (grunt) {
         files: [
           '<%= yeoman.app %>/{,*/}*.html',
           '.tmp/styles/{,*/}*.css',
-          '{.tmp,<%= yeoman.app %>}/scripts/**/**/*.js',
+          '{.tmp,<%= yeoman.app %>}/scripts/bundle.js',
           '<%= yeoman.app %>/images/{,*/}*.{png,jpg,jpeg,gif,webp,svg}'
         ]
       }
@@ -318,7 +318,6 @@ module.exports = function (grunt) {
     concurrent: {
       server: [
         'compass',
-        'browserify:development',
         'copy:styles'
       ],
       test: [
@@ -393,6 +392,7 @@ module.exports = function (grunt) {
     grunt.task.run([
       'env:development',
       'clean:server',
+      'browserify:development',
       'concurrent:server',
       'autoprefixer',
       'connect:livereload',
