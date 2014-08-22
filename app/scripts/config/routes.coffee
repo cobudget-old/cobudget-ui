@@ -1,16 +1,18 @@
+fs = require('fs')
+
 `// @ngInject`
 module.exports = ($routeProvider) ->
   $routeProvider
     .when '/budgets/:budget_id',
-      templateUrl: '/views/budget-overview.html'
+      template: fs.readFileSync(__dirname + '/../../views/budget-overview.html').toString()
       controller: require('../modules/budgets/controllers/overview.coffee')
     .when '/budgets/:budget_id/contributors',
-      templateUrl: '/views/budget-contributors.html'
+      template: fs.readFileSync(__dirname + '/../../views/budget-contributors.html').toString()
       controller: require('../modules/budgets/controllers/contributors.coffee')
     .when '/budgets/:budget_id/my-allocation',
-      templateUrl: '/views/budget-allocations.html'
+      template: fs.readFileSync(__dirname + '/../../views/budget-allocations.html').toString()
       controller: require('../modules/budgets/controllers/allocations.coffee')
     .when '/buckets/:budget_id',
-      templateUrl: '/views/bucket-show.html'
+      template: fs.readFileSync(__dirname + '/../../views/bucket-show.html').toString()
       controller: require('../modules/buckets/controllers/show.coffee')
     .otherwise(redirectTo: '/budgets/1')
