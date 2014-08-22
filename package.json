@@ -1,14 +1,36 @@
 {
   "name": "try",
   "version": "0.0.0",
-  "dependencies": {},
+  "dependencies": {
+    "angular": "^1.2.21",
+    "angular-cookies": "^1.2.19",
+    "angular-module-sanitize": "^1.2.19",
+    "angular-route": "^1.2.17-build.163.1",
+    "angular-ui-router": "^0.2.10",
+    "es5-shim": "^4.0.2",
+    "json3": "^3.3.2",
+    "lodash": "^2.4.1",
+    "restangular": "^1.4.0"
+  },
+  "napa": {
+    "angular-flash": "wmluke/angular-flash",
+    "angular-lodash": "cabrel/angular-lodash"
+  },
   "devDependencies": {
-    "bower": "~1.3.3",
+    "angular-mocks": "^1.2.22",
+    "brfs": "^1.2.0",
+    "browserify": "^4.2.3",
+    "browserify-ngannotate": "^0.1.0",
+    "browserify-shim": "^3.6.0",
     "chai": "^1.9.1",
     "chai-as-promised": "^4.1.1",
+    "coffee-script": "^1.7.1",
+    "coffeeify": "^0.7.0",
+    "envify": "^3.0.0",
     "generator-env-config": "0.0.2",
     "grunt": "~0.4.1",
     "grunt-autoprefixer": "~0.4.0",
+    "grunt-browserify": "^2.2.0-beta1",
     "grunt-cli": "~0.1.13",
     "grunt-concurrent": "~0.4.1",
     "grunt-contrib-clean": "~0.5.0",
@@ -24,26 +46,32 @@
     "grunt-contrib-jshint": "~0.7.1",
     "grunt-contrib-uglify": "~0.2.0",
     "grunt-contrib-watch": "~0.5.2",
+    "grunt-env": "^0.4.1",
     "grunt-google-cdn": "~0.2.0",
     "grunt-karma": "~0.8.3",
-    "grunt-ngmin": "~0.0.2",
     "grunt-protractor-runner": "~1.0.0",
     "grunt-replace": "~0.7.7",
     "grunt-rev": "~0.1.0",
+    "grunt-shell": "^0.7.0",
     "grunt-svgmin": "~0.2.0",
     "grunt-usemin": "~2.0.0",
     "jshint-stylish": "~0.1.3",
     "load-grunt-tasks": "~0.2.0",
+    "lodash": "^2.4.1",
     "mocha": "^1.21.3",
+    "napa": "^0.4.1",
     "sinon": "^1.10.3",
     "sinon-chai": "^2.5.0",
     "time-grunt": "~0.2.0",
+    "uglifyify": "^2.5.0",
     "yo": "~1.1.2"
   },
   "engines": {
     "node": ">=0.8.0"
   },
   "scripts": {
-    "test": "protractor config/protractor.js"
+    "install": "napa",
+    "test": "grunt test",
+    "server": "grunt server"
   }
 }

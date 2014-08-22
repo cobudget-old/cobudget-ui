@@ -6,8 +6,10 @@ deploy_package.tar.gz
 app/bower_components/
 .DS_STORE
 .idea
-app/scripts/config.coffee
+app/scripts/bundle.js
+app/scripts/shim.js
 config/environments/development.json
 config/environments/staging.json
 config/environments/production.json
 phantomjsdriver.log
+npm-debug.log

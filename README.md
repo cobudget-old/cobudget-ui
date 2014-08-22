@@ -24,8 +24,8 @@ Likewise you will need to setup production.json and staging.json for deploying t
 Install node and npm: https://github.com/joyent/node/wiki/Installation 
 
 ```
-sudo npm install
-bower install (select angular version 1.2.21)
+npm install
+npm run bower-install (select angular version 1.2.21)
 ```
 
 Install ruby 2 and bundler and run `bundle install`
@@ -33,10 +33,10 @@ Install ruby 2 and bundler and run `bundle install`
 *Start the server:*
 
 ```
-grunt server
+npm run server
 ```
 
-To debug server startup errors `grunt server --verbose`
+To debug server startup errors `./node_modules/.bin/grunt server --verbose`
 
 *Testing*
 

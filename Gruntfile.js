@@ -7,24 +7,39 @@
 // use this if you want to recursively match all subfolders:
 // 'test/spec/**/*.js'
 
+var replace_files = [{
+  expand: true,
+  flatten: true,
+  src: ['./config/constants.coffee'],
+  dest: '<%= yeoman.app %>/scripts/config/'
+}]
+
+
 module.exports = function (grunt) {
   require('load-grunt-tasks')(grunt);
   require('time-grunt')(grunt);
 
   grunt.initConfig({
+    env: {
+      development: {
+        NODE_ENV: 'development'
+      },
+      staging: {
+        NODE_ENV: 'staging'
+      },
+      production: {
+        NODE_ENV: 'production'
+      }
+    },
     yeoman: {
       // configurable paths
-      app: require('./bower.json').appPath || 'app',
+      app: 'app',
       dist: 'dist'
     },
     watch: {
       compass: {
         files: ['<%= yeoman.app %>/styles/{,*/}*.{scss,sass}'],
         tasks: ['compass:server']
-      },
-      coffee: {
-        files: ['<%= yeoman.app %>/scripts/**/**/*.coffee'],
-        tasks: ['coffee:dist']
       },
       coffeeTest: {
         files: ['test/spec/{,*/}*.coffee'],
@@ -37,7 +52,7 @@ module.exports = function (grunt) {
         files: [
           '<%= yeoman.app %>/{,*/}*.html',
           '.tmp/styles/{,*/}*.css',
-          '{.tmp,<%= yeoman.app %>}/scripts/**/**/*.js',
+          '{.tmp,<%= yeoman.app %>}/scripts/bundle.js',
           '<%= yeoman.app %>/images/{,*/}*.{png,jpg,jpeg,gif,webp,svg}'
         ]
       }
@@ -116,7 +131,7 @@ module.exports = function (grunt) {
         imagesDir: '<%= yeoman.app %>/images',
         javascriptsDir: '<%= yeoman.app %>/scripts',
         fontsDir: '<%= yeoman.app %>/styles/fonts',
-        importPath: '<%= yeoman.app %>/bower_components',
+        importPath: 'node_modules',
         httpImagesPath: '/images',
         httpGeneratedImagesPath: '/images/generated',
         httpFontsPath: '/styles/fonts',
@@ -134,19 +149,48 @@ module.exports = function (grunt) {
         }
       }
     },
+    browserify: {
+      // TODO de-dupe files configuration
+      dist: {
+        files: {
+          'app/scripts/bundle.js': 'app/scripts/app.coffee',
+          'app/scripts/shim.js': 'app/scripts/shim.coffee',
+        },
+        options: {
+          browserifyOptions: {
+            debug: false,
+          },
+          transform: [
+            "coffeeify",
+            "envify",
+            "brfs",
+            ['browserify-ngannotate', { x: '.coffee'}],
+            [{ global: true }, "uglifyify"]
+          ]
+        }
+      },
+      development: {
+        files: {
+          'app/scripts/bundle.js': 'app/scripts/app.coffee',
+          'app/scripts/shim.js': 'app/scripts/shim.coffee',
+        },
+        options: {
+          browserifyOptions: {
+            debug: true,
+          },
+          watch: true,
+          transform: [
+            "coffeeify",
+            "envify",
+            "brfs",
+          ]
+        }
+      }
+    },
     coffee: {
       options: {
         sourceMap: true,
         sourceRoot: ''
-      },
-      dist: {
-        files: [{
-          expand: true,
-          cwd: '<%= yeoman.app %>/scripts',
-          src: '**/**/*.coffee',
-          dest: '.tmp/scripts',
-          ext: '.js'
-        }]
       },
       test: {
         files: [{
@@ -237,7 +281,7 @@ module.exports = function (grunt) {
         files: [{
           expand: true,
           cwd: '<%= yeoman.app %>',
-          src: ['*.html', 'views/*.html'],
+          src: ['*.html', 'views/*.html', 'scripts/**/*.html'],
           dest: '<%= yeoman.dist %>'
         }]
       }
@@ -253,10 +297,10 @@ module.exports = function (grunt) {
           src: [
             '*.{ico,png,txt}',
             '.htaccess',
-            'bower_components/**/*',
-            'modded_components/**/*',
             'images/{,*/}*.{gif,webp}',
             'fonts/*',
+            'lib/**/*',
+            'static-css/**/*',
             'views/**/*'
           ]
         }, {
@@ -278,7 +322,6 @@ module.exports = function (grunt) {
     concurrent: {
       server: [
         'compass',
-        'coffee:dist',
         'copy:styles'
       ],
       test: [
@@ -288,6 +331,7 @@ module.exports = function (grunt) {
       dist: [
         'compass',
         'coffee',
+        'browserify:dist',
         'copy:styles',
         'imagemin',
         'svgmin',
@@ -305,84 +349,10 @@ module.exports = function (grunt) {
         html: ['<%= yeoman.dist %>/*.html']
       }
     },
-    ngmin: {
-      dist: {
-        files: [{
-          expand: true,
-          cwd: '.tmp/concat/scripts',
-          src: '*.js',
-          dest: '.tmp/concat/scripts'
-        }]
-      }
-    },
-    uglify: {
-      dist: {
-        files: {
-          '<%= yeoman.dist %>/scripts/scripts.js': [
-            '<%= yeoman.dist %>/scripts/scripts.js'
-          ]
-        }
-      }
-    },
-    //TODO Get rid of the duplication with the files arrray
-    replace: {
-      development: {
-        options: {
-          patterns: [{
-            json: grunt.file.readJSON('./config/environments/development.json')
-          }]
-        },
-        files: [{
-          expand: true,
-          flatten: true,
-          src: ['./config/config.coffee'],
-          dest: '<%= yeoman.app %>/scripts/'
-        }]
-      },
-      test: {
-        options: {
-          patterns: [{
-            json: grunt.file.readJSON('./config/environments/test.json')
-          }]
-        },
-        files: [{
-          expand: true,
-          flatten: true,
-          src: ['./config/config.coffee'],
-          dest: '<%= yeoman.app %>/scripts/'
-        }]
-      },
-      staging: {
-        options: {
-          patterns: [{
-            json: grunt.file.readJSON('./config/environments/staging.json')
-          }]
-        },
-        files: [{
-          expand: true,
-          flatten: true,
-          src: ['./config/config.coffee'],
-          dest: '<%= yeoman.app %>/scripts/'
-        }]
-      },
-      production: {
-        options: {
-          patterns: [{
-            json: grunt.file.readJSON('./config/environments/production.json')
-          }]
-        },
-        files: [{
-          expand: true,
-          flatten: true,
-          src: ['./config/config.coffee'],
-          dest: '<%= yeoman.app %>/scripts/'
-        }]
-      }
-    },
     protractor: {
       options: {
         configFile: "config/protractor.js", 
-        keepAlive: true, // If false, the grunt process stops when the test fails.
+        keepAlive: false, // If false, the grunt process stops when the test fails.
         noColor: false, // If true, protractor will not use colors in its output.
         args: {
           // Arguments passed to the command
@@ -394,11 +364,29 @@ module.exports = function (grunt) {
           keepAlive: true,
           args: {}
         }
+      },
+      saucelabs: {
+          options: {
+              configFile: "./config/protractor-saucelabs.js",
+              args: {
+                  sauceUser: process.env.SAUCE_USERNAME,
+                  sauceKey: process.env.SAUCE_ACCESS_KEY
+              }
+          }
+      }
+    },
+    shell: { 
+      mocha: {
+        command: 'mocha --compilers coffee:coffee-script/register -R min --recursive test',
+        options: {
+          failOnError: true
+        }
       }
     }
   });
 
   grunt.loadNpmTasks('grunt-replace');
+  grunt.loadNpmTasks('grunt-shell');
 
   grunt.registerTask('server', function (target) {
     if (target === 'dist') {
@@ -406,8 +394,9 @@ module.exports = function (grunt) {
     }
 
     grunt.task.run([
+      'env:development',
       'clean:server',
-      'replace:development',
+      'browserify:development',
       'concurrent:server',
       'autoprefixer',
       'connect:livereload',
@@ -415,10 +404,17 @@ module.exports = function (grunt) {
     ]);
   });
 
-  //not playing friendly with protractor - 0ms timeout
-  //grunt.registerTask('test', [
-  //  'protractor:e2e'
-  //]);
+  grunt.registerTask('sauce', [
+    'connect:test',
+    'protractor:saucelabs',
+    'shell:mocha'
+  ]);
+
+  grunt.registerTask('test', [
+    'connect:test',
+    'protractor:e2e',
+    'shell:mocha'
+  ]);
 
 //  grunt.registerTask('test', [
 //    'clean:server',
@@ -435,12 +431,11 @@ module.exports = function (grunt) {
     'useminPrepare',
     'concurrent:dist',
     'autoprefixer',
+    'browserify:dist',
     'concat',
-    'ngmin',
     'copy:dist',
     'cdnify',
     'cssmin',
-    'uglify',
     'rev',
     'usemin'
   ]);
@@ -452,12 +447,12 @@ module.exports = function (grunt) {
   ]);
 
   grunt.registerTask('staging', [
-    'replace:staging',
+    'env:staging',
     'build'
   ]);
 
   grunt.registerTask('production', [
-    'replace:production',
+    'env:production',
     'build'
   ]);
 };
