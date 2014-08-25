@@ -7,6 +7,7 @@ angular
   .directive('bucketSummary', window.Cobudget.Directives.BucketSummary)
   .directive('budgetBanner', window.Cobudget.Directives.BudgetBanner)
   .directive('navBar', window.Cobudget.Directives.NavBar)
+  .directive('login', window.Cobudget.Directives.Login)
   .service('Budget', window.Cobudget.Resources.Budget)
   .service('Bucket', window.Cobudget.Resources.Bucket)
   .service('BudgetLoader', window.Cobudget.Services.BudgetLoader)
