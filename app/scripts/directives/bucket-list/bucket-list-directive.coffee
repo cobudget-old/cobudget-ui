@@ -6,6 +6,7 @@
       _.each buckets, (bucket) ->
         bucket.percentage_funded = 20
         bucket.my_allocation_total = 100
+        bucket.allocation_goal = 200
 
       $scope.buckets = buckets
 
