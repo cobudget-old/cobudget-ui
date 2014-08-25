@@ -1,3 +1,4 @@
+`// @ngInject`
 window.Cobudget.Resources.Allocation = (Restangular) ->
   # allocations = Restangular.all('allocations')
   updateAllocation: (allocation_data)->

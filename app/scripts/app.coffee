@@ -11,4 +11,7 @@ angular
   .directive('login', window.Cobudget.Directives.Login)
   .service('Budget', window.Cobudget.Resources.Budget)
   .service('Bucket', window.Cobudget.Resources.Bucket)
+  .service('User', window.Cobudget.Resources.User)
+  .service('Allocation', window.Cobudget.Resources.Allocation)
   .service('BudgetLoader', window.Cobudget.Services.BudgetLoader)
+  .service('UserLoader', window.Cobudget.Services.UserLoader)
