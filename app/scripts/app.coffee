@@ -4,6 +4,7 @@ angular
   .config(window.Cobudget.Config.Router)
   .config(window.Cobudget.Config.Restangular)
   .directive('bucketList', window.Cobudget.Directives.BucketList)
+  .directive('bucketListItem', window.Cobudget.Directives.BucketListItem)
   .directive('bucketSummary', window.Cobudget.Directives.BucketSummary)
   .directive('budgetBanner', window.Cobudget.Directives.BudgetBanner)
   .directive('navBar', window.Cobudget.Directives.NavBar)
