@@ -1,5 +1,5 @@
 `// @ngInject`
-window.Cobudget.Resources.Bucket = (Restangular) ->
+window.Cobudget.Resources.Bucket = (Restangular, Allocation) ->
   #  buckets = Restangular.all('buckets')
   #
   #  setMinMax: (bucket)->
@@ -29,9 +29,21 @@ window.Cobudget.Resources.Bucket = (Restangular) ->
   #    #TODO Admin stuff
   #    Restangular.one('buckets', bucket_id).customPOST({bucket_id: bucket_id, state: state, admin_id: 1}, 'set-state')
   #
+  updateMyAllocation: (bucket, amount)->
+    # update my allocation on server
+    Allocation.update {
+      id: bucket.my_allocation.id
+      amount: amount
+    }
+
+
   sumBucketAllocations: (bucket)->
     sum = 0
     for allocation in bucket.allocations
       sum += allocation.amount
     sum
+
+  getPercentageFunded: (bucket)->
+    sum = @sumBucketAllocations(bucket)
+    Math.round(sum / bucket.allocation_goal * 100)
 

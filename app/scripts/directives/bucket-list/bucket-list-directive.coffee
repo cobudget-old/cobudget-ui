@@ -4,8 +4,12 @@
     return unless budget
     Budget.getBudgetBuckets(budget.id).then (buckets) ->
       _.each buckets, (bucket) ->
+        bucket.my_allocation = {
+          amount: 100
+          bucket_id: bucket.id
+        }
+        bucket.allocations = [bucket.my_allocation]
         bucket.percentage_funded = 20
-        bucket.my_allocation_total = 100
         bucket.allocation_goal = 200
 
       $scope.buckets = buckets
