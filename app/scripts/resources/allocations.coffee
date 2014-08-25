@@ -4,4 +4,3 @@ window.Cobudget.Resources.Allocation = (Restangular) ->
     allocation = Restangular.one('allocations', allocation_data.id).customPUT(allocation_data)
   createAllocation: (allocation_data)->
     # allocations.post('allocations', allocation_data)
-])
