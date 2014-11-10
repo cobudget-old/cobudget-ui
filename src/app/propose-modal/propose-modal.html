@@ -1,0 +1,21 @@
+<div class="propose-modal">
+
+  <div class="modal-header">
+    Login!
+    <button type="button" class="close" ng-click="$close()">
+      <span aria-hidden="true">×</span>
+      <span class="sr-only">Close</span>
+    </button>
+  </div>
+
+  <form name="proposeForm" role="form"  ng-submit="submit()" ng-controller="ProposeModalCtrl">
+    
+    <p>Bucket name:</p>
+    <input type="text" ng-model="bucket_name" name="bucket_name" />
+
+    Propose:
+    <input type="submit" id="submit" value="Submit" />
+
+  </form>
+
+</div>

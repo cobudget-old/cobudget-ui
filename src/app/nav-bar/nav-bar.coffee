@@ -3,6 +3,19 @@ angular.module('nav-bar', [])
 
     $scope.groups = groups
 
+    ///Dropdown stuff - to be moved to directive ///
+    
+    $scope.status = {
+      isopen: false
+    }
+
+    $scope.toggleDropdown = ($event) -> 
+      $event.preventDefault()
+      $event.stopPropagation()
+      $scope.status.isopen = !$scope.status.isopen
+
+    ///Dropdown stuff - to be moved to directive ///
+
     $rootScope.$watch 'groupId', (groupId) ->
       if groupId
         $scope.selectedGroup = _.find $scope.groups, (group) ->

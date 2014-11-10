@@ -18,14 +18,12 @@
   <script src="http://js.pusher.com/2.1/pusher.min.js" type="text/javascript"></script>
   <link rel="stylesheet" type="text/css" href="app/layout/layout.css">
 
-  <!--START BUCKETS PAGE CSS-->
   <link rel="stylesheet" type="text/css" href="app/bucket-list/bucket-list.css">
-  <!--END BUCKETS PAGE CSS-->
-
   <link rel="stylesheet" type="text/css" href="app/budget-overview/budget-overview.css">
   <link rel="stylesheet" type="text/css" href="app/budget-contributors/budget-contributors.css">
   <link rel="stylesheet" type="text/css" href="app/nav-bar/nav-bar.css">
   <link rel="stylesheet" type="text/css" href="app/tab-bar/tab-bar.css">
+  <link rel="stylesheet" type="text/css" href="app/propose-modal/propose-modal.css">
   <link href='http://fonts.googleapis.com/css?family=Open+Sans:400,300,700' rel='stylesheet' type='text/css'>
 
   <!--<link rel="stylesheet" href="bower_components/nvd3/nv.d3.css">-->
@@ -74,8 +72,10 @@
 <script src="app/common/modded_components/angular-flash-messages/angular-flash.js"></script>
 <script src="bower_components/angular-route/angular-route.js"></script>
 <script src="bower_components/angular-cookies/angular-cookies.js"></script>
+<script src="bower_components/angular-ui-utils/scrollfix.js"></script>
 <script src="bower_components/restangular/dist/restangular.js"></script>
 <script src="bower_components/angular-ui-router/release/angular-ui-router.js"></script>
+
 <!-- endbuild -->
 
 <script src="app/config/namespace.js"></script>
@@ -97,6 +97,7 @@
 <script src="app/auth/login_controller.js"></script>
 <script src="app/auth/login_modal.js"></script>
 
+<script src="app/propose-modal/propose-modal.js"></script>
 
 <script src="app/app.js"></script>
 <script src="app/common/controllers/application_controller.js"></script>

@@ -18,7 +18,7 @@ angular.module('bucket-list', [])
         # gtfo
         return
       contribution.save(ContributionService).then ->
-        $scope.loadContributorDetails()
+        $scope.loadContributorDetails()      
 
     $scope.groupId = $stateParams.groupId
     $scope.status = null

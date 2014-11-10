@@ -112,6 +112,11 @@ $my: coral
   top: 50px
 
 //SUMMARY
+
+//NOT WORKING
+header.ui-scrollfix
+  position: fixed
+
 header
   @include allocatable(background-color)
   height: 110px
@@ -121,6 +126,13 @@ header
   text-align: left
   border-bottom: 1px solid #e8e8e8
   padding: 32px $bucket-gutter
+
+  .add-button
+    font-size: 40px
+    position: relative
+    z-index: 100
+    left: 90%
+    top: -50px
 
   .titles
     color: $dark
