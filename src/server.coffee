@@ -8,8 +8,11 @@ nodeEnv = env.NODE_ENV or 'development'
 if env.NODE_ENV isnt 'production'
   require('debug').enable("*")
 
-module.exports = (options) ->
-  options or= {}
+module.exports = (options = {}) ->
+
+  root = options.root or __dirname + '/../build'
+  cache = options.cache or
+    if env.NODE_ENV == 'production' then 3600 else 0
 
   webapp = express()
 
@@ -20,9 +23,7 @@ module.exports = (options) ->
     }))
 
   webapp.use(require('ecstatic')({
-    root: options.root or __dirname + '/../build'
-    cache: options.cache or
-      if env.NODE_ENV == 'production' then 3600 else 0
+    root: root
+    cache: cache
     showDir: false
-    autoIndex: true
   }))
