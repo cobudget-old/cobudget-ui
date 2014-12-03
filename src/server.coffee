@@ -1,5 +1,7 @@
 http = require('http')
 url = require('url')
+Path = require('path')
+fs = require('fs')
 express = require('express')
 
 env = process.env
@@ -26,4 +28,12 @@ module.exports = (options = {}) ->
     root: root
     cache: cache
     showDir: false
+    handleError: false
   }))
+
+  # if nothing else matched,
+  webapp.use (req, res, next) ->
+    res.status(200)
+    fs.createReadStream(
+      Path.join(root, "index.html")
+    ).pipe(res)
