@@ -31,9 +31,12 @@ module.exports = (options = {}) ->
     handleError: false
   }))
 
-  # if nothing else matched,
+  # if path doesn't have an extension
   webapp.use (req, res, next) ->
-    res.status(200)
-    fs.createReadStream(
-      Path.join(root, "index.html")
-    ).pipe(res)
+    if not Path.extname(req.path)
+      res.status(200)
+      fs.createReadStream(
+        Path.join(root, "index.html")
+      ).pipe(res)
+    else
+      next()
