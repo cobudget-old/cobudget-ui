@@ -1,0 +1,3 @@
+#!/bin/sh
+
+pageres 'http://localhost:9000/#/groups/2/rounds/21/buckets/146' 1366x768 --cookie 'user=%7B%22id%22%3A1%2C%22name%22%3A%22Admin%22%2C%22email%22%3A%22admin%40example.com%22%2C%22access_token%22%3A%22iPuPpyz3aPrNpvKjC9hJ%22%2C%22force_password_reset%22%3Anull%7D' --delay 3
