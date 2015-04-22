@@ -1,10 +1,9 @@
 /node_modules
-/build
+build
 .tmp
 .sass-cache
 .DS_Store
 .idea
-!config/default.coffee
 phantomjsdriver.log
 *.log
 *.swp
