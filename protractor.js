@@ -1,4 +1,4 @@
-require('coffee-script')
+require('coffee-script');
 
 exports.config = {
 
