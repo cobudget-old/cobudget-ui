@@ -11,7 +11,8 @@
     "webdriver-start": "webdriver-manager start",
     "test-spec": "testling -x firefox",
     "test-e2e": "protractor protractor.js",
-    "test": "(export NODE_ENV=test; npm run test-spec && npm run test-e2e)",
+    "test-style": "costandard",
+    "test": "(export NODE_ENV=test; npm run test-style && npm run test-spec && npm run test-e2e)",
     "build": "gulp build",
     "develop": "gulp develop",
     "stage": "(export NODE_ENV=staging; gulp branch && git push origin gh-pages -f)",
@@ -45,6 +46,11 @@
     "angular-bootstrap": "angular-ui/bootstrap#gh-pages",
     "angular-xeditable": "vitalets/angular-xeditable#0.1.8",
     "awesome-bootstrap-checkbox": "flatlogic/awesome-bootstrap-checkbox#v0.2.3"
+  },
+  "costandard": {
+    "ignore": [
+      "build/**"
+    ]
   },
   "dependencies": {
     "address-rfc2822": "0.0.2",
@@ -85,6 +91,7 @@
     "coffee-script": "^1.8.0",
     "coffeeify": "^0.7.0",
     "connect-livereload": "^0.5.0",
+    "costandard": "git://github.com/cobudget/costandard",
     "ecstatic": "^0.5.6",
     "envify": "^3.2.0",
     "express": "^4.10.2",
