@@ -10,3 +10,23 @@ phantomjsdriver.log
 *.swp
 /config
 /app/assets/CNAME
+
+# mobile app
+# iOS
+mobile/platforms/ios/build/
+mobile/platforms/ios/www/
+mobile/platforms/ios/cordova/console.log
+*.xcuserdatad
+
+# android
+mobile/platforms/android/assets/www
+mobile/platforms/android/bin
+mobile/platforms/android/gen
+mobile/platforms/android/local.properties
+mobile/platforms/android/ant-build
+mobile/platforms/android/ant-gen
+mobile/platforms/android/CordovaLib/ant-build
+mobile/platforms/android/CordovaLib/ant-gen
+mobile/platforms/android/CordovaLib/bin
+mobile/platforms/android/CordovaLib/gen
+mobile/platforms/android/CordovaLib/local.properties
