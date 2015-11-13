@@ -1,7 +1,7 @@
 null
 
 ### @ngInject ###
-global.cobudgetApp.run ($auth, CurrentUser, $location, $q, Records, $rootScope, Toast, $window) ->
+global.cobudgetApp.run ($auth, CurrentUser, ipCookie, $location, $q, Records, $rootScope, Toast, $window) ->
 
   membershipsLoadedDeferred = $q.defer()
   global.cobudgetApp.membershipsLoaded = membershipsLoadedDeferred.promise
@@ -12,12 +12,12 @@ global.cobudgetApp.run ($auth, CurrentUser, $location, $q, Records, $rootScope, 
       membershipsLoadedDeferred.resolve()
 
   $rootScope.$on 'auth:login-success', (ev, user) ->
+    ipCookie.remove('currentGroupId');
     global.cobudgetApp.currentUserId = user.id
     Records.memberships.fetchMyMemberships().then (data) ->
       if CurrentUser().utcOffset != moment().utcOffset()
         Records.users.updateProfile(utc_offset: moment().utcOffset()).then (data) ->
       membershipsLoadedDeferred.resolve()
-      
       # during invite new group flow, user created and logged in without having a group yet
       # so we perform this quick check
       if data.groups
@@ -42,3 +42,7 @@ global.cobudgetApp.run ($auth, CurrentUser, $location, $q, Records, $rootScope, 
       $location.path('/')
     else
       $window.location.reload()
+
+  $rootScope.$on '$stateChangeSuccess', (e, toState, toParams, fromState, fromParams) -> 
+    if toState.url == '/groups/:groupId'
+      ipCookie('currentGroupId', toParams.groupId)
