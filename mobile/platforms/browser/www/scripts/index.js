@@ -494,7 +494,7 @@ module.exports = {
 },{"./welcome-page.html":20}],20:[function(require,module,exports){
 module.exports = "<div class=\"welcome-page\" ng-hide=\"loading\">\n  <md-toolbar class=\"md-primary welcome-page__toolbar\">\n    <h1 class=\"md-toolbar-tools welcome-page__heading\" layout-align=\"center\">Welcome to Cobudget!</h1>\n  </md-toolbar>\n\n  <md-content layout-padding class=\"welcome-page__content\">\n    <form novalidate ng-submit=\"login(formData)\">\n      <div class=\"welcome-page__form-errors\">{{ formError }}</div>\n\n      <md-input-container>\n        <label>email</label>\n        <input name=\"email\" type=\"email\" ng-model=\"formData.email\">\n      </md-input-container>\n\n      <md-input-container>\n        <label>password</label>\n        <input name=\"password\" type=\"password\" ng-model=\"formData.password\">\n      </md-input-container>\n\n      <md-button class=\"welcome-page__login-button\">Log In</md-button>\n    </form>\n  </md-content>\n</div>";
 },{}],21:[function(require,module,exports){
-module.exports = {"apiPrefix":"https://cobudget-beta-api.herokuapp.com/api/v1","env":"production"}
+module.exports = {"apiPrefix":"https://cobudget-beta-api.herokuapp.com/api/v1","env":"development"}
 },{}],22:[function(require,module,exports){
 (function (global){
 
@@ -1042,7 +1042,7 @@ require("ng-sanitize");
 require("angular-truncate-2");
 require("angular-marked");
 
-if ("production" != "production") {
+if ("development" != "production") {
   global.localStorage.debug = "*";
 }
 
@@ -6428,13 +6428,9 @@ factory('ipCookie', ['$document',
  */
 
 /* jshint undef: true, unused: true */
-/* global angular:true */
-/* global marked:true */
-/* global module */
-/* global require */
+/* global angular, marked */
 
-(function () {
-  'use strict';
+'use strict';
 
   /**
    * @ngdoc overview
@@ -6497,11 +6493,9 @@ factory('ipCookie', ['$document',
       With that you're ready to get started!
      */
 
-  if (typeof module !== 'undefined' && typeof exports === 'object') {
-    module.exports = 'hc.marked';
-  }
+module.exports = 'hc.marked';
 
-  angular.module('hc.marked', [])
+angular.module('hc.marked', [])
 
     /**
     * @ngdoc service
@@ -6589,78 +6583,73 @@ factory('ipCookie', ['$document',
     </example>
   **/
 
-  .provider('marked', function () {
+.provider('marked', function () {
+  var self = this;
 
-    var self = this;
+  /**
+   * @ngdoc method
+   * @name markedProvider#setRenderer
+   * @methodOf hc.marked.service:markedProvider
+   *
+   * @param {object} opts Default renderer options for [marked](https://github.com/chjj/marked#overriding-renderer-methods).
+   */
 
-    /**
-     * @ngdoc method
-     * @name markedProvider#setRenderer
-     * @methodOf hc.marked.service:markedProvider
-     *
-     * @param {object} opts Default renderer options for [marked](https://github.com/chjj/marked#overriding-renderer-methods).
-     */
+  self.setRenderer = function (opts) {
+    this.renderer = opts;
+  };
 
-    self.setRenderer = function (opts) {
-      this.renderer = opts;
-    };
+  /**
+   * @ngdoc method
+   * @name markedProvider#setOptions
+   * @methodOf hc.marked.service:markedProvider
+   *
+   * @param {object} opts Default options for [marked](https://github.com/chjj/marked#options-1).
+   */
 
-    /**
-     * @ngdoc method
-     * @name markedProvider#setOptions
-     * @methodOf hc.marked.service:markedProvider
-     *
-     * @param {object} opts Default options for [marked](https://github.com/chjj/marked#options-1).
-     */
+  self.setOptions = function (opts) {  // Store options for later
+    this.defaults = opts;
+  };
 
-    self.setOptions = function(opts) {  // Store options for later
-      this.defaults = opts;
-    };
+  self.$get = ['$log', '$window', function ($log, $window) {
+    var m;
 
-    self.$get = ['$window', '$log', function ($window, $log) {
+    try {
+      m = require('marked');
+    } catch (e) {
+      m = $window.marked || marked;
+    }
 
-      var m =  (function() {
+    if (angular.isUndefined(m)) {
+      $log.error('angular-marked Error: marked not loaded.  See installation instructions.');
+      return;
+    }
 
-        if (typeof module !== 'undefined' && typeof exports === 'object') {
-          return require('marked');
-        } else {
-          return $window.marked || marked;
-        }
+    // override rendered markdown html
+    // with custom definitions if defined
+    if (self.renderer) {
+      var r = new m.Renderer();
+      var o = Object.keys(self.renderer);
+      var l = o.length;
 
-      })();
-
-      if (angular.isUndefined(m)) {
-        $log.error('angular-marked Error: marked not loaded.  See installation instructions.');
-        return;
+      while (l--) {
+        r[o[l]] = self.renderer[o[l]];
       }
 
-      // override rendered markdown html
-      // with custom definitions if defined
-      if (self.renderer) {
-        var r = new m.Renderer();
-        var o = Object.keys(self.renderer),
-            l = o.length;
+      // add the new renderer to the options if need be
+      self.defaults = self.defaults || {};
+      self.defaults.renderer = r;
+    }
 
-        while (l--) {
-          r[o[l]] = self.renderer[o[l]];
-        }
+    m.setOptions(self.defaults);
 
-        // add the new renderer to the options if need be
-        self.defaults = self.defaults || {};
-        self.defaults.renderer = r;
-      }
-
-      m.setOptions(self.defaults);
-
-      return m;
-    }];
-
-  })
+    return m;
+  }];
+})
 
   // TODO: filter and tests */
-  //app.filter('marked', ['marked', function(marked) {
-  //  return marked;
-  //}]);
+  // app.filter('marked', ['marked', function(marked) {
+  //   return marked;
+  // }]);
 
   /**
    * @ngdoc directive
@@ -6724,63 +6713,63 @@ factory('ipCookie', ['$document',
        </example>
    */
 
-  .directive('marked', ['marked', '$templateRequest', function (marked, $templateRequest) {
-    return {
-      restrict: 'AE',
-      replace: true,
-      scope: {
-        opts: '=',
-        marked: '=',
-        src: '='
-      },
-      link: function (scope, element, attrs) {
-        set(scope.marked || element.text() || '');
+.directive('marked', ['marked', '$templateRequest', function (marked, $templateRequest) {
+  return {
+    restrict: 'AE',
+    replace: true,
+    scope: {
+      opts: '=',
+      marked: '=',
+      src: '='
+    },
+    link: function (scope, element, attrs) {
+      set(scope.marked || element.text() || '');
 
-        if (attrs.marked) {
-          scope.$watch('marked', set);
-        }
-
-        if (attrs.src) {
-          scope.$watch('src', function(src) {
-            $templateRequest(src, true).then(function(response) {
-              set(response);
-            });
-          });
-        }
-
-        function unindent(text) {
-          if (!text) return text;
-
-          var lines  = text
-            .replace(/\t/g, '  ')
-            .split(/\r?\n/);
-
-          var i, l, min = null, line, len = lines.length;
-          for (i = 0; i < len; i++) {
-            line = lines[i];
-            l = line.match(/^(\s*)/)[0].length;
-            if (l === line.length) { continue; }
-            min = (l < min || min === null) ? l : min;
-          }
-
-          if (min !== null && min > 0) {
-            for (i = 0; i < len; i++) {
-              lines[i] = lines[i].substr(min);
-            }
-          }
-          return lines.join('\n');
-        }
-
-        function set(text) {
-          text = unindent(text || '');
-          element.html(marked(text, scope.opts || null));
-        }
-
+      if (attrs.marked) {
+        scope.$watch('marked', set);
       }
-    };
-  }]);
 
-}());
+      if (attrs.src) {
+        scope.$watch('src', function (src) {
+          $templateRequest(src, true).then(function (response) {
+            set(response);
+          });
+        });
+      }
+
+      function unindent (text) {
+        if (!text) return text;
+
+        var lines = text
+          .replace(/\t/g, '  ')
+          .split(/\r?\n/);
+
+        var min = null;
+        var len = lines.length;
+
+        var l, line;
+        for (var i = 0; i < len; i++) {
+          line = lines[i];
+          l = line.match(/^(\s*)/)[0].length;
+          if (l === line.length) { continue; }
+          min = (l < min || min === null) ? l : min;
+        }
+
+        if (min !== null && min > 0) {
+          for (i = 0; i < len; i++) {
+            lines[i] = lines[i].substr(min);
+          }
+        }
+        return lines.join('\n');
+      }
+
+      function set (text) {
+        text = unindent(text || '');
+        element.html(marked(text, scope.opts || null));
+      }
+    }
+  };
+}]);
 
 },{"marked":79}],79:[function(require,module,exports){
 (function (global){

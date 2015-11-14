@@ -20,9 +20,6 @@
     "installed_plugins": {
         "cordova-plugin-transport-security": {
             "PACKAGE_NAME": "co.cobudget.app"
-        },
-        "cordova-plugin-whitelist": {
-            "PACKAGE_NAME": "co.cobudget.app"
         }
     },
     "dependent_plugins": {}
