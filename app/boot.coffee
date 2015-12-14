@@ -1,26 +1,33 @@
 null
 
 ### @ngInject ###
-global.cobudgetApp.run ($rootScope, Records, $q, $location, $auth, Toast, $window) ->
+global.cobudgetApp.run ($auth, CurrentUser, Dialog, LoadBar, $location, $q, Records, $rootScope, Toast, $window) ->
 
   membershipsLoadedDeferred = $q.defer()
   global.cobudgetApp.membershipsLoaded = membershipsLoadedDeferred.promise
 
   $rootScope.$on 'auth:validation-success', (ev, user) ->
-    global.cobudgetApp.currentUserId = user.id    
+    global.cobudgetApp.currentUserId = user.id
     Records.memberships.fetchMyMemberships().then ->
       membershipsLoadedDeferred.resolve()
 
   $rootScope.$on 'auth:login-success', (ev, user) ->
     global.cobudgetApp.currentUserId = user.id
     Records.memberships.fetchMyMemberships().then (data) ->
-      # during invite new group flow, user created and logged in without having a group yet
-      # so we perform this quick check
       membershipsLoadedDeferred.resolve()
-      if data.groups
+      if !data.groups
+        $auth.signOut().then ->
+          global.cobudgetApp.currentUserId = null
+          $location.path('/')
+          Dialog.alert(title: 'error!', content: 'invalid credentials!')
+          LoadBar.stop()
+          
+      if data.groups && _.every(data.groups, {'initialized': true})
         groupId = data.groups[0].id
         $location.path("/groups/#{groupId}")
         Toast.show('Welcome to Cobudget!')
+        if CurrentUser().utcOffset != moment().utcOffset()
+          Records.users.updateProfile(utc_offset: moment().utcOffset())
 
   $rootScope.$on '$stateChangeError', (e, toState, toParams, fromState, fromParams, error) ->
     console.log('$stateChangeError signal fired!')

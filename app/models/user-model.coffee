@@ -5,7 +5,13 @@ global.cobudgetApp.factory 'UserModel', (BaseModel) ->
   class UserModel extends BaseModel
     @singular: 'user'
     @plural: 'users'
-    @serializableAttributes: ['email']
+
+    @serializableAttributes: [
+      'email',
+      'subscribedToPersonalActivity',
+      'subscribedToDailyDigest',
+      'subscribedToParticipantActivity'
+    ]
 
     relationships: ->
       @hasMany 'memberships', with: 'memberId'
@@ -14,3 +20,10 @@ global.cobudgetApp.factory 'UserModel', (BaseModel) ->
       groupIds = _.map @memberships(), (membership) ->
         membership.groupId
       @recordStore.groups.find(groupIds)
+
+    primaryGroup: ->
+      @groups()[0]
+
+    isMemberOf: (group) ->
+      _.find @memberships(), (membership) ->
+        membership.groupId == group.id 

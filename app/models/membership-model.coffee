@@ -14,3 +14,6 @@ global.cobudgetApp.factory 'MembershipModel', (BaseModel) ->
 
     balance: ->
       parseFloat(@totalAllocations) - parseFloat(@totalContributions)
+
+    archive: ->
+      @remote.postMember(@id, 'archive')
