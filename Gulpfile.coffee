@@ -34,19 +34,15 @@ rename = require('gulp-rename')
 filter = require('gulp-filter')
 
 sassPaths =  [
-  "node_modules/bootstrap-sass/assets/stylesheets/"
   "node_modules/font-awesome/scss/"
-  "node_modules/angular-xeditable/dist/css"
-  "node_modules/angular-bootstrap-datetimepicker/src/css"
-  "node_modules/awesome-bootstrap-checkbox"
 ]
 
 styles = ->
 
   entryFilter = filter (file) ->
-    /src\/[^\/]+\.(sass|scss)$/.test(file.path)
+    /app\/[^\/]+\.(sass|scss)$/.test(file.path)
 
-  srcPaths = ['src/**/']
+  srcPaths = ['app/**/']
     .concat(sassPaths)
     .map (path) -> path + "*.{sass,scss}"
 
@@ -73,29 +69,29 @@ styles = ->
 
 gulp.task 'styles-build', styles
 gulp.task 'styles-watch', ['styles-build'], ->
-  gulp.watch('src/**/*.sass', ['styles-build'])
+  gulp.watch('app/**/*.sass', ['styles-build'])
+  gulp.watch('app/components/**/*.scss', ['styles-build'])
+  gulp.watch('app/directives/**/*.scss', ['styles-build'])
 
 #
 # scripts
 #
 browserify = require('browserify')
-mold = require('mold-source-map')
 
 scripts = (isWatch) ->
   ->
-    plugin = (bundler) ->
+    setup = (bundler) ->
+      #if isDeploy(nodeEnv)
+      #  bundler.transform(global: true, 'uglifyify')
       bundler
-        .plugin(require('bundle-collapser/plugin'))
 
     bundle = (bundler) ->
       bundler.bundle()
         .on('error', util.log.bind(util, "browserify error"))
         .pipe(plumber({ errorHandler }))
-        .pipe(mold.transformSourcesRelativeTo(__dirname))
         .pipe(source('index.js'))
         .pipe(buffer())
         .pipe(sourcemaps.init(loadMaps: true))
-        .pipe(if isDeploy(nodeEnv) then require('gulp-uglify')() else util.noop())
         .pipe(sourcemaps.write('../maps'))
         .pipe(gulp.dest('build/scripts'))
         .pipe(if lr then require('gulp-livereload')(lr) else util.noop())
@@ -107,13 +103,13 @@ scripts = (isWatch) ->
 
     if (isWatch)
       watchify = require('watchify')
-      bundler = watchify(browserify(extend(args, watchify.args)))
+      bundler = setup(watchify(browserify(extend(args, watchify.args))))
       rebundle = -> bundle(bundler)
       bundler.on('update', rebundle)
       bundler.on('log', console.log.bind(console))
       rebundle()
     else
-      bundle(plugin(browserify(args)))
+      bundle(setup(browserify(args)))
 
 gulp.task 'scripts-build', scripts(false)
 gulp.task 'scripts-watch', scripts(true)
@@ -122,7 +118,7 @@ gulp.task 'scripts-watch', scripts(true)
 # assets
 #
 html = (isWatch) ->
-  glob = 'src/index.html'
+  glob = 'app/index.html'
   ->
     gulp.src(glob)
       .pipe(if isWatch then watch(glob) else util.noop())
@@ -133,13 +129,11 @@ gulp.task 'html-build', html(false)
 gulp.task 'html-watch', html(true)
 
 assetPaths = {
-  "src/assets/**/*": "build"
+  "app/assets/**/*": "build"
   "node_modules/es5-shim/es5-shim*": "build/lib/es5-shim"
   "node_modules/json3/lib/json3*": "build/lib/json3"
   "node_modules/font-awesome/fonts/*": "build/fonts/font-awesome"
-  "node_modules/bootstrap-sass/assets/fonts/bootstrap/*": "build/fonts/bootstrap"
-  "node_modules/angular-bootstrap-datetimepicker/src/css/datetimepicker.css": "build/styles"
-  "node_modules/angular-xeditable/dist/css/xeditable.css": "build/styles"
+  "node_modules/angular-material/angular-material.css" : "build/styles"
 }
 
 assets = (isWatch) ->

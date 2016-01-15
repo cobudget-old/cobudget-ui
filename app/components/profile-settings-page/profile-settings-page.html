@@ -1,0 +1,36 @@
+<div class="profile-settings-page">
+  <md-toolbar class="profile-settings-page__toolbar">
+    <div class="md-toolbar-tools">
+      <md-button class="md-icon-button" aria-label="back" ng-click="attemptBack()">
+        <ng-md-icon icon="arrow_back"
+          layout="column"
+          layout-align="center center"
+          class="profile-settings-page__back-icon"
+        ></ng-md-icon>
+      </md-button>
+
+      <h1>Profile Settings</h1>
+    </div>
+  </md-toolbar>
+
+  <md-content class="profile-settings-page__content">
+    <form novalidate class="profile-settings-page__details-form" ng-submit="save()">
+      <div class="profile-settings-page__input-container">
+        <label class="profile-settings-page__input-label" for="name">NAME</label>
+        <input class="profile-settings-page__text-input" type="text" name="name" ng-model="currentUser.name" ng-change="changesMade = true"/>
+      </div>
+
+      <div class="profile-settings-page__input-container">
+        <label class="profile-settings-page__input-label" for="name">EMAIL</label>
+        <input class="profile-settings-page__text-input" disabled type="email" name="email" ng-model="currentUser.email" />
+      </div>
+
+      <div class="profile-settings-page__input-container">
+        <label class="profile-settings-page__input-label">PASSWORD</label>
+        <a class="profile-settings-page__change-password-link" ng-click="openChangePasswordDialog()">CHANGE PASSWORD</a>
+      </div>
+
+      <md-button class="md-raised md-primary profile-settings-page__save-btn">save</md-button>
+    </form>
+  </md-content>
+</div>

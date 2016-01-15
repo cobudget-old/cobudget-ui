@@ -17,7 +17,7 @@ Cobudget is a web app helping people collaborate on budgets. For more about the 
 Install node and npm: https://github.com/joyent/node/wiki/Installation 
 
 ```
-git clone https://github.com/open-app/cobudget-ui
+git clone https://github.com/cobudget/cobudget-ui
 cd cobudget-ui
 npm install
 ```
@@ -42,20 +42,20 @@ npm start
 
 ### Deploy
 
-*Stage (push to gh-pages)*
+*Stage (push to this repo's gh-pages)*
 
 ```
 NODE_ENV=production npm run stage
 ```
 
-*Deploy (push to dokku)*
+*Deploy (push to prod repo's gh-pages)*
 
 ```
-git remote add deploy dokku@next.cobudget.co:app
+npm run set-remote
 ```
 
 ```
-NODE_ENV=production npm run deploy
+npm run deploy
 ```
 
 ### Test
@@ -79,3 +79,6 @@ npm run test-spec
 ```
 npm run test-e2e
 ```
+
+# beta.cobudget.co
+production deploy of Cobudget beta

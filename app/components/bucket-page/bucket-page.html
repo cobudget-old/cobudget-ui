@@ -1,0 +1,10 @@
+<div class="bucket-page" ng-if="authorized">
+  <bucket-page-toolbar></bucket-page-toolbar>
+
+  <md-content class="bucket-page__content">
+    <bucket-page-header-card></bucket-page-header-card>
+    <bucket-page-progress-card ng-if="bucket.status == 'live'"></bucket-page-progress-card>
+    <bucket-page-status-card></bucket-page-status-card>
+    <bucket-page-activity-card></bucket-page-activity-card>
+  </md-content>
+</div>
