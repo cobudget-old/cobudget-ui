@@ -31,6 +31,12 @@
         <a class="profile-settings-page__change-password-link" ng-click="openChangePasswordDialog()">CHANGE PASSWORD</a>
       </div>
 
+      <div class="profile-settings-page__input-container">
+        <label class="profile-settings-page__input-label">UPLOAD AVATAR</label>
+        <input type="file" name="avatar" value="UPLOAD" ng-model="files" ngf-select="" ngf-change="updateAvatar(files)"/>
+        <!--  hidden input, when nice lookin button above is clicked make it click this one -->
+      </div>
+
       <md-button class="md-raised md-primary profile-settings-page__save-btn">save</md-button>
     </form>
   </md-content>

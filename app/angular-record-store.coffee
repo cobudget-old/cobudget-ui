@@ -3,12 +3,13 @@ Loki = require('lokijs')
 app = global.cobudgetApp
 
 AngularRecordStore = require('angular_record_store')
+require('ng-file-upload')
 
 app.factory('BaseModel', AngularRecordStore.BaseModelFn)
 app.factory('BaseRecordsInterface', ['RestfulClient', '$q', AngularRecordStore.BaseRecordsInterfaceFn])
 app.factory('RecordStore', AngularRecordStore.RecordStoreFn)
 # $compile is a joke, actually $upload (current version used is 3.x, need to update, might not even need to use)
-app.factory('RestfulClient', ['$http', '$compile', AngularRecordStore.RestfulClientFn])
+app.factory('RestfulClient', ['$http', 'Upload', '$compile', AngularRecordStore.RestfulClientFn])
 
 app.factory 'Records', (RecordStore, GroupRecordsInterface, BucketRecordsInterface, UserRecordsInterface, AllocationRecordsInterface, MembershipRecordsInterface, CommentRecordsInterface, ContributionRecordsInterface) ->
   db = new Loki('cobudgetApp')
@@ -18,6 +19,6 @@ app.factory 'Records', (RecordStore, GroupRecordsInterface, BucketRecordsInterfa
   recordStore.addRecordsInterface(UserRecordsInterface)
   recordStore.addRecordsInterface(AllocationRecordsInterface)
   recordStore.addRecordsInterface(MembershipRecordsInterface)
-  recordStore.addRecordsInterface(CommentRecordsInterface)  
-  recordStore.addRecordsInterface(ContributionRecordsInterface)  
+  recordStore.addRecordsInterface(CommentRecordsInterface)
+  recordStore.addRecordsInterface(ContributionRecordsInterface)
   recordStore
