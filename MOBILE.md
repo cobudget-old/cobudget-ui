@@ -20,6 +20,7 @@
 To rebuild:
 
     cd .. ; rm -rf build/ ; NODE_ENV=development gulp build ; cd mobile
+    cd .. ; rm -rf build/ ; NODE_ENV=development AUTH_STORAGE=localStorage API_ENDPOINT="http://10.77.1.134:3000/api/v1" gulp build ; cd mobile
 
 You must modify ``config/development.js`` to look like:
 
@@ -30,4 +31,19 @@ You must modify ``config/development.js`` to look like:
 You must launch the cobudget-api server using     
 
     bundle exec rails s -b 0.0.0.0
-    
+
+### Deploy
+
+    cd .. ; rm -rf build/ ; NODE_ENV=production AUTH_STORAGE=localStorage gulp build ; cd mobile
+
+    keytool -genkey -v -keystore cobudget_android.keystore -alias cobudget -keyalg RSA -keysize 2048 -validity 10000
+
+    jarsigner -verbose -sigalg SHA1withRSA -digestalg SHA1 \
+      -keystore cobudget_android.keystore \
+      platforms/android/build/outputs/apk/android-release-unsigned.apk cobudget
+
+    ~/Library/Android/sdk/build-tools/21.1.2/zipalign -v 4 \
+      ~/src/cobudget-ui/mobile/platforms/android/build/outputs/apk/android-release-unsigned.apk \
+      cobudget-release.apk
+
+
