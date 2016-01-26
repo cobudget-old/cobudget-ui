@@ -1,0 +1,18 @@
+{
+    "prepare_queue": {
+        "installed": [],
+        "uninstalled": []
+    },
+    "config_munge": {
+        "files": {}
+    },
+    "installed_plugins": {
+        "cordova-plugin-transport-security": {
+            "PACKAGE_NAME": "co.cobudget.app"
+        },
+        "cordova-plugin-whitelist": {
+            "PACKAGE_NAME": "co.cobudget.app"
+        }
+    },
+    "dependent_plugins": {}
+}
