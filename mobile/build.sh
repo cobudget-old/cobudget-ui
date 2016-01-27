@@ -33,6 +33,8 @@ cordova build android --release
 echo "Signing android APK."
 jarsigner -verbose -sigalg SHA1withRSA -digestalg SHA1 \
   -keystore cobudget.keystore \
+  # -storepass $STORE_PASS \
+  # -keypass $STORE_PASS \
   platforms/android/build/outputs/apk/android-release-unsigned.apk \
   cobudget
 
