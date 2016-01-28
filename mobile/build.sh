@@ -17,8 +17,11 @@ function req() {
 }
 
 echo "Checking for required tools..."
-req cordova android zipalign
+req cordova android zipalign xcodebuild
 echo "System meets build requirements."
+
+cordova platform add android
+cordova platform add ios
 
 echo ""
 echo "Building web app."

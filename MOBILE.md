@@ -3,8 +3,9 @@
 #### Prerequisites
 [Android Studio](https://developer.android.com/tools/studio/index.html) or Android SDK (``brew install android-sdk``) Please ensure to read the **Caveats** section.
 
+    
 
-    npm install -g cordova
+    npm install cordova cordova-icon -g
     cd ~/src/cobudget-ui
     npm build # must build the ui first
     
@@ -34,6 +35,7 @@ You must launch the cobudget-api server using
 
 ### Deploy
 
+#### Android
     cd .. ; rm -rf build/ ; NODE_ENV=production AUTH_STORAGE=localStorage gulp build ; cd mobile
 
     keytool -genkey -v -keystore cobudget_android.keystore -alias cobudget -keyalg RSA -keysize 2048 -validity 10000
@@ -46,4 +48,7 @@ You must launch the cobudget-api server using
       ~/src/cobudget-ui/mobile/platforms/android/build/outputs/apk/android-release-unsigned.apk \
       cobudget-release.apk
 
+#### iOS
+    cd .. ; rm -rf build/ ; NODE_ENV=production AUTH_STORAGE=localStorage gulp build ; cd mobile
+    cordova build ios --release --device
 
