@@ -31,7 +31,7 @@ NODE_ENV=production AUTH_STORAGE=localStorage gulp build
 cd mobile
 
 echo "Building cordova wrapper app."
-cordova build android --release
+cordova build android --release --device
 
 echo "Signing android APK."
 jarsigner -verbose -sigalg SHA1withRSA -digestalg SHA1 \
