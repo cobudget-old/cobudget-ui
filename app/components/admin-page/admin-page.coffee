@@ -1,4 +1,4 @@
-module.exports = 
+module.exports =
   resolve:
     userValidated: ($auth) ->
       $auth.validateUser()
@@ -17,14 +17,14 @@ module.exports =
     if UserCan.viewAdminPanel()
       $scope.authorized = true
       Error.clear()
-      $scope.accessibleGroups = CurrentUser().groups()
+      $scope.accessibleGroups = CurrentUser().administeredGroups()
     else
       $scope.authorized = false
       Error.set("you can't view this page")
 
     $scope.newGroup = Records.groups.build()
 
-    $scope.openCreateGroupDialog = ->      
+    $scope.openCreateGroupDialog = ->
       Dialog.custom
         scope: $scope
         template: require('./create-group-dialog-content.tmpl.html')
@@ -62,9 +62,6 @@ module.exports =
 
     $scope.uploadPathForGroup = (groupId) ->
       "#{config.apiPrefix}/allocations/upload?group_id=#{groupId}"
-
-    $scope.onCsvUploadSuccess = (groupId) ->
-      Records.groups.findOrFetchById(groupId)
 
     $scope.onCsvUploadCompletion = ->
       Dialog.alert(title: 'upload complete!')

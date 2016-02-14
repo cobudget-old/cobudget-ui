@@ -17,20 +17,27 @@ global.cobudgetApp.factory 'UserModel', (BaseModel) ->
     relationships: ->
       @hasMany 'memberships', with: 'memberId'
 
-    groups: ->
+    groups: () ->
       groupIds = _.map @memberships(), (membership) ->
         membership.groupId
       @recordStore.groups.find(groupIds)
+
+    administeredGroups: () ->
+      _.filter @groups(), (group) =>
+        @isAdminOf(group)
+
+    isAGroupAdmin: () ->
+      @administeredGroups().length > 0
 
     primaryGroup: ->
       @groups()[0]
 
     isMemberOf: (group) ->
-      _.find @memberships(), (membership) ->
+      !!_.find @memberships(), (membership) ->
         membership.groupId == group.id
 
     isAdminOf: (group) ->
-      _.find @memberships(), (membership) ->
+      !!_.find @memberships(), (membership) ->
         membership.groupId == group.id && membership.isAdmin
 
     isConfirmed: ->
