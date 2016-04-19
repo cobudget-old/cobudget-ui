@@ -1,0 +1,48 @@
+<md-dialog aria-label="subscription dialog" class="subscription-dialog">
+
+  <div class="subscription-dialog__close-btn">&times;</div>
+
+  <div class="subscription-dialog__top" layout="row" layout-align="center center">
+    <img ng-src="https://s3.amazonaws.com/static.caloriecount.about.com/images/medium/stouffers-lean-cuisine-pasta-8328.jpg" alt="pasta" class="subscription-dialog__endorser-img"/>
+    <div layout="column" layout-align="start end" class="subscription-dialog__endorsement-container">
+      <div>
+        "Our association members have never been more engaged. This is something special."
+      </div>
+
+      <div class="subscription-dialog__endorser-name">
+        <b>- Charles, Social Media Group</b>
+      </div>
+    </div>
+  </div>
+
+  <div class="subscription-dialog__days-left-container" layout="row" layout-align="center center">
+    <img ng-src="./img/calendar.png" alt="" class="subscription-dialog__calendar-icon"/>
+    <h2 class="subscription-dialog__days-left-text">You have 30 days left in your free trial.</h2>
+  </div>
+
+  <md-divider></md-divider>
+
+  <div class="subscription-dialog__plan-details-container" layout="column" layout-align="center center">
+    <h3 class="subscription-dialog__plan-type">Standard Plan</h3>
+    <h4 class="subscription-dialog__plan-description">All the good stuff</h4>
+
+    <div class="subscription-dialog__plan-details-list-item" ng-repeat="detail in details" layout="row" layout-align="start center">
+      <ng-md-icon icon="check_circle"
+        class="subscription-dialog__check-icon"
+        size="20"
+        layout="column"
+        layout-align="center center"
+      ></ng-md-icon>
+
+      <span>{{ detail }}</span>
+    </div>
+  </div>
+
+  <div class="subscription-dialog__btns-container" layout="column" layout-align="center center">
+    <md-button class="subscription-dialog__subscription-btn">$19.99 per month</md-button>
+
+    <a href="" class="subscription-dialog__bottom-link"><b>Need more time?</b></a>
+
+    <a href="" class="subscription-dialog__bottom-link">Non-profit or Open Source?</a>
+  </div>
+</md-dialog>

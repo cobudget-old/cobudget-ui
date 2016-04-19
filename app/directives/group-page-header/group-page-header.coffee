@@ -5,7 +5,7 @@ global.cobudgetApp.directive 'groupPageHeader', () ->
     restrict: 'E'
     template: require('./group-page-header.html')
     replace: true
-    controller: ($location, $mdBottomSheet, $scope) ->
+    controller: (Dialog, $location, $mdBottomSheet, $scope) ->
 
       $scope.createBucket = ->
         $location.path('/buckets/new').search('group_id', $scope.group.id)
@@ -20,6 +20,11 @@ global.cobudgetApp.directive 'groupPageHeader', () ->
       $scope.openManageFunds = ->
         $location.path("/groups/#{$scope.group.id}/manage_funds")
         $mdBottomSheet.cancel()
+
+      subscriptionDialog = require('./../../components/subscription-dialog/subscription-dialog.coffee')({
+        scope: $scope
+      })
+      Dialog.open(subscriptionDialog)
 
       $scope.openBottomSheet = ->
         $mdBottomSheet.show({

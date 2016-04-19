@@ -1,0 +1,107 @@
+.subscription-dialog {
+  position: relative;
+  width: 80%;
+  max-width: 500px;
+  background: #F9F9F9;
+}
+
+.subscription-dialog__close-btn {
+  position: absolute;
+  width: 25px;
+  height: 25px;
+  text-align: center;
+  font-size: 26px;
+  line-height: 18px;
+  right: 7px;
+  top: 7px;
+  color: #654C04;
+  cursor: pointer;
+
+  &:focus {
+    outline: none;
+  }
+}
+
+.subscription-dialog__top {
+  width: 100%;
+  background: #FFBC06;
+  height: 110px;
+}
+
+.subscription-dialog__endorsement-container {
+  width: 150px;
+  font-size: 11px;
+  color: #654C04;
+}
+
+.subscription-dialog__endorser-img {
+  width: 65px;
+  height: 65px;
+  border-radius: 50%;
+  border: 1px solid #FFBC06;
+  margin-right: 10px;
+}
+
+.subscription-dialog__endorser-name {
+  font-size: 10px;
+  margin-top: 5px;
+}
+
+.subscription-dialog__days-left-container {
+  height: 80px;
+}
+
+.subscription-dialog__days-left-text {
+  font-size: 17px;
+  font-weight: 500;
+}
+
+.subscription-dialog__calendar-icon {
+  width: 40px;
+  margin-right: 10px;
+}
+
+.subscription-dialog__plan-type {
+  margin: 0;
+  font-weight: 400;
+  color: #B0B0B0;
+  font-size: 18px;
+  margin-top: 25px;
+}
+
+.subscription-dialog__plan-description {
+  font-size: 12px;
+  font-weight: bold;
+  margin-top: 7px;
+  margin-bottom: 20px;
+}
+
+.subscription-dialog__plan-details-list-item {
+  font-size: 13px;
+  width: 190px;
+  margin-bottom: 15px;
+  font-weight: 500;
+}
+
+.subscription-dialog__check-icon {
+  fill: $cob-green;
+  margin-right: 12px;
+}
+
+.subscription-dialog__btns-container {
+  padding-bottom: 10px;
+}
+
+.subscription-dialog__subscription-btn {
+  background: $cob-green !important;
+  color: white !important;
+  padding: 3px 16px !important;
+  font-size: 15px !important;
+  margin-bottom: 20px;
+}
+
+.subscription-dialog__bottom-link {
+  color: #939393;
+  font-size: 13px;
+  margin-bottom: 10px;
+}
