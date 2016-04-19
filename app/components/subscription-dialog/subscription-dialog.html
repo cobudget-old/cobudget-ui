@@ -15,9 +15,14 @@
     </div>
   </div>
 
-  <div class="subscription-dialog__days-left-container" layout="row" layout-align="center center">
-    <img ng-src="./img/calendar.png" alt="" class="subscription-dialog__calendar-icon"/>
-    <h2 class="subscription-dialog__days-left-text">You have 30 days left in your free trial.</h2>
+  <div class="subscription-dialog__days-left-container" layout="column" layout-align="center center">
+    <div layout="row" layout-align="center center">
+      <img ng-src="./img/calendar.png" alt="" class="subscription-dialog__calendar-icon"/>
+      <h2 ng-if="!trialOver" class="subscription-dialog__days-left-text">You have 30 days left in your free trial.</h2>
+      <h2 ng-if="trialOver" class="subscription-dialog__days-left-text">Your free trial is over</h2>
+    </div>
+
+    <div class="subscription-dialog__choose-option-text">Please choose an option</div>
   </div>
 
   <md-divider></md-divider>

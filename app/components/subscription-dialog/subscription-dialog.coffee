@@ -3,6 +3,8 @@ module.exports = (params) ->
   scope: params.scope
   controller: (Dialog, LoadBar, $location, $mdDialog, $scope, Toast) ->
 
+    $scope.trialOver = true
+
     $scope.details = [
       'Unlimited group members',
       'Unlimited projects',

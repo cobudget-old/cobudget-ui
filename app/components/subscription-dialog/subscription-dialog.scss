@@ -61,12 +61,18 @@
   margin-right: 10px;
 }
 
+.subscription-dialog__choose-option-text {
+  font-size: 11px;
+  color: #676767;
+  font-weight: 500;
+}
+
 .subscription-dialog__plan-type {
   margin: 0;
   font-weight: 400;
   color: #B0B0B0;
   font-size: 18px;
-  margin-top: 25px;
+  margin-top: 20px;
 }
 
 .subscription-dialog__plan-description {
