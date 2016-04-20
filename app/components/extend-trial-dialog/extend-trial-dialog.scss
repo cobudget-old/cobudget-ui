@@ -1,0 +1,78 @@
+.extend-trial-dialog {
+  position: relative;
+  width: 80%;
+  max-width: 500px;
+  background: #F9F9F9;
+}
+
+.extend-trial-dialog__close-btn {
+  position: absolute;
+  width: 25px;
+  height: 25px;
+  text-align: center;
+  font-size: 26px;
+  line-height: 18px;
+  right: 7px;
+  top: 7px;
+  color: #654C04;
+  cursor: pointer;
+
+  &:focus {
+    outline: none;
+  }
+}
+
+.extend-trial-dialog__top {
+  width: 100%;
+  background: #FFBC06;
+  height: 110px;
+}
+
+.extend-trial-dialog__endorsement-container {
+  width: 150px;
+  font-size: 11px;
+  color: #654C04;
+}
+
+.extend-trial-dialog__endorser-img {
+  width: 65px;
+  height: 65px;
+  border-radius: 50%;
+  border: 1px solid #FFBC06;
+  margin-right: 10px;
+}
+
+.extend-trial-dialog__endorser-name {
+  font-size: 10px;
+  margin-top: 5px;
+}
+
+.extend-trial-dialog__header {
+  width: 285px;
+  text-align: center;
+  font-size: 16px;
+  margin-bottom: 15px;
+  margin-top: 30px;
+}
+
+.extend-trial-dialog__subheader {
+  font-size: 11px;
+  color: #676767;
+  font-weight: 500;
+  margin-bottom: 15px;
+}
+
+.extend-trial-dialog__subscription-btn {
+  background: $cob-green !important;
+  color: white !important;
+  padding: 3px 23px !important;
+  font-size: 15px !important;
+  margin-bottom: 20px;
+  text-transform: none;
+}
+
+.extend-trial-dialog__back-btn {
+  color: #939393;
+  font-size: 13px;
+  margin-bottom: 25px;
+}

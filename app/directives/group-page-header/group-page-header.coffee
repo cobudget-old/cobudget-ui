@@ -21,10 +21,15 @@ global.cobudgetApp.directive 'groupPageHeader', () ->
         $location.path("/groups/#{$scope.group.id}/manage_funds")
         $mdBottomSheet.cancel()
 
-      subscriptionDialog = require('./../../components/subscription-dialog/subscription-dialog.coffee')({
+      # subscriptionDialog = require('./../../components/subscription-dialog/subscription-dialog.coffee')({
+      #   scope: $scope
+      # })
+      # Dialog.open(subscriptionDialog)
+
+      extendTrialDialog = require('./../../components/extend-trial-dialog/extend-trial-dialog.coffee')({
         scope: $scope
       })
-      Dialog.open(subscriptionDialog)
+      Dialog.open(extendTrialDialog)
 
       $scope.openBottomSheet = ->
         $mdBottomSheet.show({
