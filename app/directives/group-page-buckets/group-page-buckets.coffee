@@ -10,4 +10,10 @@ global.cobudgetApp.directive 'groupPageBuckets', () ->
      $scope.showBucket = (bucketId) ->
        $location.path("/buckets/#{bucketId}")
 
+      $scope.showArchivedBuckets = ->
+        $scope.archivedBucketsShown = true
+
+      $scope.hideArchivedBuckets = ->
+        $scope.archivedBucketsShown = false
+
       return

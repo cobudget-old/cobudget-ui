@@ -6,14 +6,11 @@ global.cobudgetApp.factory 'MembershipModel', (BaseModel) ->
     @singular: 'membership'
     @plural: 'memberships'
     @indices: ['groupId', 'memberId']
-    @serializableAttributes: ['isAdmin']
+    @serializableAttributes: ['isAdmin', 'closedAdminHelpCardAt', 'closedMemberHelpCardAt']
 
     relationships: ->
       @belongsTo 'member', from: 'users'
       @belongsTo 'group'
-
-    balance: ->
-      parseFloat(@totalAllocations) - parseFloat(@totalContributions)
 
     isPending: ->
       !@member().isConfirmed()

@@ -6,9 +6,15 @@ module.exports =
       global.cobudgetApp.membershipsLoaded
   url: '/groups/:groupId'
   template: require('./group-page.html')
-  controller: (CurrentUser, Error, LoadBar, Records, $scope, $stateParams, UserCan) ->
-
+  params:
+    openMembersTab: null
+    firstTimeSeeingGroup: null
+  controller: (CurrentUser, Error, LoadBar, $location, Records, $scope, $stateParams, UserCan) ->
     LoadBar.start()
+
+    if $stateParams.openMembersTab
+      $scope.tabSelected = 1
+
     groupId = parseInt($stateParams.groupId)
     Records.groups.findOrFetchById(groupId)
       .then (group) ->

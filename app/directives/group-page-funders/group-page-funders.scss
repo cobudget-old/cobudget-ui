@@ -1,12 +1,76 @@
 // funders
 
-.group-page__funders {
+.group-page__funders-card {
+  margin-bottom: 35px;
+}
+
+.group-page__funders-list {
   padding-left: 16px;
   padding-right: 16px;
 }
 
+.group-page__funders-subheader-container {
+  padding: 15px 25px;
+}
+
+.group-page__funders-subheader {
+  font-weight: 400 !important;
+  letter-spacing: 0.02em !important;
+  color: black;
+  margin: 0;
+  font-size: 15px !important;
+}
+
+.group-page__funders-subheader-divider {
+  margin-top: 0 !important;
+}
+
+.group-page__funders-admin-btn {
+  border: 0;
+  height: 30px;
+  padding: 5px 10px;
+  color: black;
+  font-weight: 400;
+  font-size: 13px;
+  cursor: pointer;
+  border: 1px solid #8C8C8C;
+  transition: 0.5s;
+
+  &:hover {
+    border-color: transparent;
+  }
+
+  &:focus {
+    outline: none;
+  }
+}
+
+.group-page__funder-balance-dollar-icon {
+  width: 20px;
+  height: 20px;
+  margin-right: 5px;
+}
+
+.group-page__funder-manage-funds-btn-container {
+  min-width: 100px;
+}
+
+.group-page__funder-manage-funds-btn {
+  cursor: pointer;
+  padding: 2px 10px;
+
+  &:hover {
+    background: #F0F0F0;
+    text-decoration: underline;
+  }
+}
+
+
+// funder
+
 .group-page__funder-container {
   margin-bottom: 10px;
+  width: 100%;
 }
 
 .group-page__funder-avatar {
@@ -19,10 +83,20 @@
   margin-right: 10px;
 }
 
+.group-page__funder-name-container {
+  min-width: 0;
+}
+
 .group-page__funder-name {
   width: 100%;
   @include truncatedText;
   @include fontMedium;
+}
+
+.group-page__funder-email {
+  width: 100%;
+  @include truncatedText;
+  @include fontTiny;
 }
 
 .group-page__funder-invited-icon {
@@ -36,13 +110,54 @@
 }
 
 .group-page__funder-balance-container {
-  margin-left: 15px;
+  margin-left: 5px;
+}
+
+.group-page__funder-balance-btn {
+  font-size: 19px;
+  font-weight: 500;
+  cursor: pointer;
+  padding: 2px 8px;
+  transition: 0.5s;
+
+  &:hover {
+    background: #F0F0F0;
+    text-decoration: underline;
+  }
+
+  &:focus {
+    outline: none;
+  }
 }
 
 .group-page__funder-balance {
   font-size: 19px;
-  color: $cobudget-green;
   font-weight: 500;
+  padding: 2px 8px;
+
+  &:focus {
+    outline: none;
+  }
+}
+
+.group-page__funder-balance-personal {
+  color: $cob-green;
+
+  &:hover {
+    text-decoration-color: $cob-green;
+  }
+}
+
+.group-page__funder-balance-other {
+  color: $cob-yellow;
+
+  &:hover {
+    text-decoration-color: $cob-yellow;
+  }
+}
+
+.group-page__funder-balance-pending {
+  color: #C1C1C1;
 }
 
 .group-page__funder-admin-label {
@@ -57,7 +172,7 @@
 
 .group-page__funder-more-button {
   width: 15px !important;
-  margin-left: 14px !important;
+  margin-left: 0 6px !important;
   cursor: pointer;
 }
 
@@ -68,7 +183,7 @@
 
 // funder more menu
 
-.group-page__manage-funds-icon {
+.group-page__manage-funds-icon-container {
   width: 20px;
   height: 20px;
   border-radius: 50%;
@@ -78,67 +193,15 @@
   margin-left: 2px;
 }
 
+.group-page__manage-funds-icon {
+  height: 20px !important;
+  position: relative;
+  bottom: 8px;
+}
+
 .group-page__funder-more-menu-item-icon {
   margin-right: 12px;
   fill: $cobudget-dark-grey;
-}
-
-// remove membership dialog
-
-.group-page__remove-membership-dialog-header {
-  text-align: center;
-  padding: 15px !important;
-}
-
-.group-page__remove-membership-dialog-header-text {
-  margin-top: 5px;
-  color: $cobudget-red;
-  font-weight: 500;
-}
-
-.group-page__remove-membership-dialog-warning-icon {
-  fill: $cobudget-red;
-}
-
-.group-page__remove-membership-dialog-list-header {
-  font-size: 14px;
-  font-weight: 600;
-  text-align: center;
-  color: $grey-on-white;
-}
-
-.group-page__remove-membership-dialog-list-container {
-  padding: 15px !important;
-}
-
-.group-page__remove-membership-dialog-list {
-  padding-left: 0;
-  font-size: 12px;
-  list-style: none;
-}
-
-.group-page__remove-membership-dialog-list-item {
-  margin-bottom: 5px;
-}
-
-.group-page__remove-membership-dialog-warning-text {
-  @include fontMedium;
-  padding-left: 5px;
-  color: $grey-on-white;
-}
-
-.group-page__remove-membership-dialog-checkbox-icon {
-  fill: $grey-on-white;
-}
-
-.group-page__remove-membership-dialog-remove-btn {
-  background: $cobudget-red !important;
-  color: white !important;
-}
-
-.group-page__remove-membership-dialog-cancel-btn {
-  color: $grey-on-white !important;
-  background: transparent !important;
 }
 
 // manage funds dialog
@@ -283,4 +346,37 @@
 // reinvite user dialog
 .group-page__reinvite-user-dialog-content {
   padding: 30px !important;
+}
+
+// media
+
+@media (max-width: 420px) {
+  .group-page__funder-avatar {
+    width: 30px;
+    height: 30px;
+    font-size: 14px;
+  }
+
+  .group-page__funder-name {
+    @include fontSmall;
+  }
+
+  .group-page__funder-email {
+    font-size: 11px;
+  }
+
+  .group-page__funders-admin-btn {
+    height: 25px;
+    padding: 0px 6px;
+    font-size: 12px;
+  }
+
+  .group-page__funder-admin-label {
+    margin-top: 1px;
+    font-size: 10px;
+  }
+
+  .group-page__funder-balance {
+    font-size: 17px;
+  }
 }

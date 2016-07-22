@@ -5,12 +5,45 @@ global.cobudgetApp.directive 'groupPageFunders', () ->
     restrict: 'E'
     template: require('./group-page-funders.html')
     replace: true
-    controller: (Dialog, LoadBar, Records, $scope, Toast, $window) ->
+    controller: (config, Dialog, DownloadCSV, LoadBar, $q, Records, $scope, Toast, $window) ->
 
       $scope.toggleMemberAdmin = (membership) ->
         membership.isAdmin = !membership.isAdmin
-        membership.save()
+        params =
+          membership:
+            is_admin: membership.isAdmin
+        membership.remote.update(membership.id, params)
 
+      $scope.downloadCSV = ->
+        timestamp = moment().format('YYYY-MM-DD-HH-mm-ss')
+        filename = "#{$scope.group.name}-member-data-#{timestamp}"
+        params =
+          url: "#{config.apiPrefix}/memberships.csv?group_id=#{$scope.group.id}"
+          filename: filename
+        DownloadCSV(params)
+
+      $scope.openResendInvitesDialog = ->
+        Dialog.confirm({
+          content: "Resend invitations to #{$scope.group.pendingMemberships().length} people?"
+        }).then ->
+          $scope.resendInvites()
+
+      $scope.resendInvites = ->
+        invitesSent = 0
+        LoadBar.start({msg: "Resending invites (0 / #{$scope.group.pendingMemberships().length})"})
+        promises = []
+        _.each $scope.group.pendingMemberships(), (membership) ->
+          promise = Records.memberships.invite(membership)
+          promise.finally ->
+            invitesSent = invitesSent + 1
+            LoadBar.updateMsg("Resending invites (#{invitesSent} / #{$scope.group.pendingMemberships().length})")
+          promises.push(promise)
+
+        $q.allSettled(promises).finally ->
+          Toast.show("#{promises.length} invitations sent!")
+          LoadBar.stop()
+
+      # TODO: refactor
       $scope.inviteAgain = (membership) ->
         Dialog.custom
           template: require('./reinvite-user-dialog.tmpl.html')
@@ -20,7 +53,7 @@ global.cobudgetApp.directive 'groupPageFunders', () ->
             $scope.cancel = ->
               $mdDialog.cancel()
             $scope.proceed = ->
-              Records.memberships.reinvite(membership)
+              Records.memberships.invite(membership)
                 .then ->
                   $scope.cancel()
                   Toast.show('Invitation sent!')
@@ -28,30 +61,13 @@ global.cobudgetApp.directive 'groupPageFunders', () ->
                   Dialog.alert({title: 'Error!'})
 
       $scope.removeMembership = (membership) ->
-        Dialog.custom
-          template: require('./remove-membership-dialog.tmpl.html')
-          scope: $scope
-          controller: ($scope, $mdDialog, Records) ->
-            $scope.member = membership.member()
-            $scope.warnings = [
-              "All of their funds will be removed from currently funding buckets",
-              "All of their funds will be removed from the group",
-              "All of their ideas will be removed from the group",
-              "All of their funding buckets will be removed from the group and money will be refunded"
-            ]
-            $scope.cancel = ->
-              $mdDialog.cancel()
-            $scope.proceed = ->
-              $mdDialog.hide()
-              LoadBar.start()
-              membership.archive().then ->
-                LoadBar.stop()
-                Dialog.alert(
-                  title: 'Success!'
-                  content: "#{$scope.member.name} was removed from #{$scope.group.name}"
-                ).then ->
-                  $window.location.reload()
+        removeMembershipDialog = require('./../../components/remove-membership-dialog/remove-membership-dialog.coffee')({
+          scope: $scope,
+          membership: membership
+        })
+        Dialog.open(removeMembershipDialog)
 
+      # TODO: refactor
       $scope.openManageFundsDialog = (funderMembership) ->
         Dialog.custom
           scope: $scope
@@ -67,8 +83,8 @@ global.cobudgetApp.directive 'groupPageFunders', () ->
 
             $scope.normalizeAllocationAmount = ->
               allocationAmount = $scope.formData.allocationAmount || 0
-              if allocationAmount + $scope.managedMembership.balance() < 0
-                $scope.formData.allocationAmount = -$scope.managedMembership.balance()
+              if allocationAmount + $scope.managedMembership.balance < 0
+                $scope.formData.allocationAmount = -$scope.managedMembership.balance
 
             $scope.normalizeNewBalance = ->
               if $scope.formData.newBalance < 0
@@ -84,7 +100,7 @@ global.cobudgetApp.directive 'groupPageFunders', () ->
               if $scope.mode == 'add'
                 amount = $scope.formData.allocationAmount
               if $scope.mode == 'change'
-                amount = $scope.formData.newBalance - $scope.managedMembership.balance()
+                amount = $scope.formData.newBalance - $scope.managedMembership.balance
               params = {groupId: $scope.group.id, userId: $scope.managedMember.id, amount: amount }
               allocation = Records.allocations.build(params)
               allocation.save()
