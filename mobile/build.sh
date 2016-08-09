@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/bash -ex
 
 DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 
@@ -17,11 +17,11 @@ function req() {
 }
 
 echo "Checking for required tools..."
-req cordova android zipalign xcodebuild
+req cordova android zipalign xcodebuild cordova-icon
 echo "System meets build requirements."
 
-cordova platform add android
-cordova platform add ios
+cordova platform add android || echo platform already added
+cordova platform add ios || echo ios already added
 
 echo ""
 echo "Building web app."
@@ -36,8 +36,6 @@ cordova build android --release --device
 echo "Signing android APK."
 jarsigner -verbose -sigalg SHA1withRSA -digestalg SHA1 \
   -keystore cobudget.keystore \
-  # -storepass $STORE_PASS \
-  # -keypass $STORE_PASS \
   platforms/android/build/outputs/apk/android-release-unsigned.apk \
   cobudget
 
@@ -48,3 +46,7 @@ zipalign -v 4 \
 
 echo -n "Done: "
 ls -lah cobudget-release.apk
+
+echo "Building cordova wrapper app for ios."
+cordova build ios --release --device
+
