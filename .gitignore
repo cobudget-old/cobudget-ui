@@ -10,3 +10,4 @@ phantomjsdriver.log
 *.swp
 /config
 /app/assets/CNAME
+mobile/platforms
