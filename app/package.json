@@ -3,11 +3,18 @@
     "transform": [
       ["coffeeify", { "extension": ".coffee" } ],
       ["browserify-ngannotate", { "ext": [ ".js", ".coffee" ] } ],
+      "browserify-shim",
       "babelify",
       "envify",
       ["evalify", { "files": ["app/configs/app.js", "node_modules/app/configs/app.js"] } ],
       ["txtify2", { "extensions": [ "html" ] } ],
       "concatenify"
     ]
+  },
+  "browserify-shim": {
+    "jquery": "global:jQuery",
+    "angular": "global:angular",
+    "angular-material": "global:angular",
+    "angular-material-icons": "global:angular"
   }
 }
