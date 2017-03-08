@@ -34,4 +34,6 @@ global.cobudgetApp.directive 'groupPageHeader', () ->
             ]
         })
 
+      $scope.selectTab(0)
+
       return
