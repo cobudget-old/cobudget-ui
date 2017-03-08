@@ -41,6 +41,38 @@
 
       </div>
 
+      <div layout="row" layout-align="space-around center" layout-margin class="group-page-header__stats-overview-container">
+
+        <div>
+          <div layout="row" layout-align="center center" class="group-page-header__stats-overview-content" >
+              <ng-md-icon icon="check_circle"
+                class="group-page-header__funds-icon"
+                  layout="column"
+                  layout-align="center center"
+              ></ng-md-icon>
+              <div layout="column" layout-align="center center">
+                <span class="group-page-header__stats-overview-amount">{{ group.totalInCirculation | currency : group.currencySymbol : 0 }}</span>
+              </div>
+          </div>
+          <div layout="row" class="group-page-header__stats-overview-label">Total in Circulation</div>
+        </div>
+
+        <div>
+          <div layout="row" layout-align="center center" class="group-page-header__stats-overview-content" >
+              <ng-md-icon icon="access_time"
+                class="group-page-header__funds-icon"
+                  layout="column"
+                  layout-align="center center"
+              ></ng-md-icon>
+              <div layout="column" layout-align="center center">
+                <span class="group-page-header__stats-overview-amount">{{ group.waitingForPayment | currency : group.currencySymbol : 0 }}</span>
+              </div>
+          </div>
+          <div class="group-page-header__stats-overview-label">Waiting for Payment</div>
+        </div>
+
+      </div>
+
     </md-list>
   </md-card>
 
