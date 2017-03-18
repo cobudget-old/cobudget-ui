@@ -6,7 +6,9 @@ global.morph = require('morph')
 global.listify = require('listify')
 global.isEmptyObject = require('is-empty-object')
 global.browser = require('bowser')
+global.c3 = require('c3')
 
+require('d3')
 require('angular')
 require('angular-ui-router')
 require('angular-sanitize/angular-sanitize')
@@ -26,6 +28,7 @@ require('ng-q-all-settled')
 require('ng-csv')
 require('angular-chart.js')
 require('angular-autodisable/angular-autodisable')
+require('c3-angular')
 
 if (process.env.NODE_ENV != 'production') {
   global.localStorage.debug = "*"
@@ -47,7 +50,8 @@ global.cobudgetApp = angular.module('cobudget', [
   'qAllSettled',
   'ngCsv',
   'chart.js',
-  'ngAutodisable'
+  'ngAutodisable',
+  'gridshore.c3js.chart'
 ])
 .constant('config', require('app/configs/app'))
 
