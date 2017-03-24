@@ -1,0 +1,38 @@
+<md-dialog aria-label="unarchive bucket dialog" class="unarchive-bucket-dialog">
+  <md-dialog-content class="sticky-container">
+
+    <div class="unarchive-bucket-dialog__header" layout="column" layout-align="center center">
+      <ng-md-icon icon="warning"
+        layout="column"
+        layout-align="center center"
+        ng-class="bucket.status == 'live' ? 'unarchive-bucket-dialog__red-warning-icon' : 'unarchive-bucket-dialog__yellow-warning-icon'"
+        size="35"
+      ></ng-md-icon>
+
+      <div class="unarchive-bucket-dialog__header-text">
+        Are you sure you want to unarchive this bucket?
+      </div>
+    </div>
+
+    <md-divider ng-if="bucket.status == 'live'"></md-divider>
+
+    <div class="unarchive-bucket-dialog__details-container">
+      <p class="unarchive-bucket-dialog__details" ng-if="bucket.status == 'live'">
+        If you confirm, the money that has already been given to this bucket will be returned to its funders.
+      </p>
+
+      <div class="unarchive-bucket-dialog__final-caution">
+        Info: This bucket can be archived again later
+      </div>
+    </div>
+  </md-dialog-content>
+
+  <div class="md-actions" layout="row">
+    <md-button class="unarchive-bucket-dialog__btn unarchive-bucket-dialog__cancel-btn" ng-click="cancel()">cancel</md-button>
+    <md-button
+      class="md-raised unarchive-bucket-dialog__btn unarchive-bucket-dialog__proceed-btn"
+      ng-class="bucket.status == 'live' ? 'unarchive-bucket-dialog__red-proceed-btn' : 'unarchive-bucket-dialog__yellow-proceed-btn'"
+      ng-click="proceed()"
+    >yes, unarchive it</md-button>
+  </div>
+</md-dialog>

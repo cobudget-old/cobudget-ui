@@ -1,0 +1,63 @@
+.unarchive-bucket-dialog {
+  width: 80%;
+  max-width: 420px;
+}
+
+.unarchive-bucket-dialog__header {
+  text-align: center;
+  padding: 15px !important;
+}
+
+.unarchive-bucket-dialog__header-text {
+  margin-top: 5px;
+  font-weight: bold;
+  color: $grey-on-white;
+}
+
+.unarchive-bucket-dialog__red-warning-icon {
+  fill: $cobudget-red;
+}
+
+.unarchive-bucket-dialog__yellow-warning-icon {
+  fill: $cobudget-gold;
+}
+
+.unarchive-bucket-dialog__final-caution {
+  font-size: 14px;
+  font-weight: 600;
+  text-align: center;
+  color: $grey-on-white;
+}
+
+.unarchive-bucket-dialog__details-container {
+  padding: 0 20px 10px 20px !important;
+}
+
+.unarchive-bucket-dialog__details {
+  margin-top: 20px;
+  color: gray;
+  font-size: 14px;
+}
+
+.unarchive-bucket-dialog__warning-text {
+  @include fontMedium;
+  padding-left: 5px;
+  color: $grey-on-white;
+}
+
+.unarchive-bucket-dialog__proceed-btn {
+  color: white !important;
+}
+
+.unarchive-bucket-dialog__red-proceed-btn {
+  background: $cobudget-red !important;
+}
+
+.unarchive-bucket-dialog__yellow-proceed-btn {
+  background: $cobudget-gold !important;
+}
+
+.unarchive-bucket-dialog__cancel-btn {
+  color: $grey-on-white !important;
+  background: transparent !important;
+}
