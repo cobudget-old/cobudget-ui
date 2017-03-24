@@ -1,7 +1,7 @@
 module.exports = (params) ->
   template: require('./unarchive-bucket-dialog.html')
   scope: params.scope
-  controller: (Dialog, LoadBar, $location, $mdDialog, $scope) ->
+  controller: (Dialog, LoadBar, $location, $mdDialog, $scope, Toast) ->
 
     $scope.cancel = ->
       $mdDialog.cancel()
@@ -11,8 +11,8 @@ module.exports = (params) ->
       LoadBar.start()
       $scope.bucket.archive()
         .then ->
-          groupId = $scope.bucket.groupId
-          $location.path("/groups/#{groupId}")
+          LoadBar.stop()
+          Toast.show('Bucket Unarchived!')
         .catch ->
           Dialog.alert({title: "Error!"})
           LoadBar.stop()
