@@ -1,7 +1,4 @@
 <div class="group-page__funders">
-  <div class="group-page__funders-loadscreen" ng-if="!fundersLoaded">
-    <md-progress-circular md-mode="indeterminate"></md-progress-circular>
-  </div>
 
   <div ng-if="fundersLoaded">
     <md-card ng-if="group.settledMemberships().length > 0" class="group-page__funders-card">
