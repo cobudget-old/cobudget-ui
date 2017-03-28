@@ -26,6 +26,9 @@ global.cobudgetApp.factory 'BucketModel', (BaseModel) ->
     archive: ->
       @remote.postMember(@id, 'archive')
 
+    unarchive: ->
+      @remote.postMember(@id, 'unarchive')
+
     paid: ->
       @remote.postMember(@id, 'paid')
 

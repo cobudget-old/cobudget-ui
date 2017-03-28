@@ -9,7 +9,7 @@ module.exports = (params) ->
     $scope.proceed = ->
       $scope.cancel()
       LoadBar.start()
-      $scope.bucket.archive()
+      $scope.bucket.unarchive()
         .then ->
           LoadBar.stop()
           Toast.show('Bucket Unarchived!')
