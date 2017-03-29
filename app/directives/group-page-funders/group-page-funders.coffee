@@ -33,18 +33,18 @@ global.cobudgetApp.directive 'groupPageFunders', () ->
 
       $scope.resendInvites = ->
         invitesSent = 0
-        LoadBar.start({msg: "Resending invites (0 / #{$scope.group.pendingMemberships().length})"})
+        # LoadBar.start({msg: "Resending invites (0 / #{$scope.group.pendingMemberships().length})"})
         promises = []
         _.each $scope.group.pendingMemberships(), (membership) ->
           promise = Records.memberships.invite(membership)
           promise.finally ->
             invitesSent = invitesSent + 1
-            LoadBar.updateMsg("Resending invites (#{invitesSent} / #{$scope.group.pendingMemberships().length})")
+            # LoadBar.updateMsg("Resending invites (#{invitesSent} / #{$scope.group.pendingMemberships().length})")
           promises.push(promise)
 
         $q.allSettled(promises).finally ->
           Toast.show("#{promises.length} invitations sent!")
-          LoadBar.stop()
+          # LoadBar.stop()
 
       # TODO: refactor
       $scope.inviteAgain = (membership) ->
