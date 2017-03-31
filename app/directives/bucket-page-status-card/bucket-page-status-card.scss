@@ -37,7 +37,7 @@
   color: #333333;
 }
 
-.bucket-page__start-funding-btn {
+.bucket-page__start-funding-btn, .bucket-page__mark-as-paid-btn, .bucket-page__unarchive-btn {
   background-color: $cob-green !important;
   width: 100%;
   height: 35px;
@@ -50,7 +50,7 @@
   margin-bottom: 3px;
 }
 
-.bucket-page__start-funding-btn:not([disabled]):hover {
+.bucket-page__start-funding-btn:not([disabled]):hover, .bucket-page__mark-as-paid-btn:not([disabled]):hover, .bucket-page__unarchive-btn:not([disabled]):hover {
   background-color: $cob-green;
 }
 
