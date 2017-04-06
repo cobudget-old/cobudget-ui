@@ -23,3 +23,9 @@ global.cobudgetApp.directive 'bucketPageStatusCard', () ->
           scope: $scope
         })
         Dialog.open(paidBucketDialog)
+
+      $scope.unarchive = ->
+        unarchiveBucketDialog = require('./../../components/unarchive-bucket-dialog/unarchive-bucket-dialog.coffee')({
+          scope: $scope
+        })
+        Dialog.open(unarchiveBucketDialog)

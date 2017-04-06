@@ -50,13 +50,13 @@
           </div>
         </div>
         <md-button
-        ng-if="!bucket.paidAt && userCanManageBucket()"
-        class="md-raised md-primary bucket-page__start-funding-btn"
-        ng-click='paid()'
-        ng-autodisable
-        ng-show='userCanManageBucket()'
+          ng-if="!bucket.paidAt && userCanManageBucket()"
+          class="md-raised md-primary bucket-page__mark-as-paid-btn"
+          ng-click='paid()'
+          ng-autodisable
+          ng-show='userCanManageBucket()'
         >
-        Mark bucket as paid
+          Mark bucket as paid
         </md-button>
       </div>
     </div>
@@ -101,6 +101,16 @@
           <p class="bucket-page__status-description"><em>This bucket was marked as paid on {{ bucket.paidAt | exactDateWithTime }}</em></p>
         </div>
       </div>
+
+      <md-button
+        ng-if="userCanUnarchiveBucket()"
+        class="md-raised md-primary bucket-page__unarchive-btn"
+        ng-click='unarchive()'
+        ng-autodisable
+        ng-show='userCanUnarchiveBucket()'
+      >
+        Unarchive Bucket
+      </md-button>
     </div>
   </md-card-content>
 </md-card>
