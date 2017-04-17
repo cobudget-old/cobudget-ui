@@ -32,7 +32,9 @@ global.cobudgetApp.factory 'UserModel', (BaseModel) ->
       @administeredGroups().length > 0
 
     primaryGroup: ->
-      @groups()[0]
+      groupsByLastActivity = _.sortBy @groups(), (group) ->
+        group.lastActivityAt
+      groupsByLastActivity[groupsByLastActivity.length - 1]
 
     isMemberOf: (group) ->
       !!_.find @memberships(), (membership) ->
