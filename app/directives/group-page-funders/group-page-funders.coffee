@@ -10,6 +10,14 @@ global.cobudgetApp.directive 'groupPageFunders', () ->
       Records.memberships.fetchByGroupId($scope.group.id).then ->
         $scope.fundersLoaded = true
 
+      $scope.indicateSaving = (membership) ->
+        console.log('membership')
+        console.log(membership)
+        params =
+          membership:
+            saved_at: moment()
+        membership.remote.update(membership.id, params)
+
       $scope.toggleMemberAdmin = (membership) ->
         membership.isAdmin = !membership.isAdmin
         params =

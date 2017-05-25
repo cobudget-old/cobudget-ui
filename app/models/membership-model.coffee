@@ -6,7 +6,7 @@ global.cobudgetApp.factory 'MembershipModel', (BaseModel) ->
     @singular: 'membership'
     @plural: 'memberships'
     @indices: ['groupId', 'memberId']
-    @serializableAttributes: ['isAdmin', 'closedAdminHelpCardAt', 'closedMemberHelpCardAt']
+    @serializableAttributes: ['isAdmin', 'closedAdminHelpCardAt', 'closedMemberHelpCardAt', 'savedAt']
 
     relationships: ->
       @belongsTo 'member', from: 'users'

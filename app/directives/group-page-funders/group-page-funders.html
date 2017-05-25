@@ -32,6 +32,15 @@
               <span class="group-page__funder-admin-label" ng-if="funderMembership.isAdmin">(admin)</span>
             </div>
 
+            <md-button layout="column" layout-align="center end" class="group-page__funder-saving-container" ng-if="funderMembership.id == membership.id">
+            <span class="group-page__funder-saving"
+                ng-class=""
+                ng-click="indicateSaving(membership)"
+            >
+                save?
+            </span>
+            </md-button>
+
             <div layout="column" layout-align="center end" class="group-page__funder-balance-container">
               <span class="group-page__funder-balance"
                 ng-class="{'group-page__funder-balance-btn' : membership.isAdmin, 'group-page__funder-balance-personal' : funderMembership.id == membership.id, 'group-page__funder-balance-other' : funderMembership.id != membership.id}"
