@@ -10,14 +10,6 @@ global.cobudgetApp.directive 'groupPageFunders', () ->
       Records.memberships.fetchByGroupId($scope.group.id).then ->
         $scope.fundersLoaded = true
 
-      $scope.indicateSaving = (membership) ->
-        console.log('membership')
-        console.log(membership)
-        params =
-          membership:
-            saved_at: moment()
-        membership.remote.update(membership.id, params)
-
       $scope.toggleMemberAdmin = (membership) ->
         membership.isAdmin = !membership.isAdmin
         params =
@@ -27,9 +19,9 @@ global.cobudgetApp.directive 'groupPageFunders', () ->
 
       $scope.downloadCSV = ->
         timestamp = moment().format('YYYY-MM-DD-HH-mm-ss')
-        filename = "#{$scope.group.name}-member-data-#{timestamp}"
+        filename = "#{$scope.group.name}-member-report-#{timestamp}"
         params =
-          url: "#{config.apiPrefix}/memberships.csv?group_id=#{$scope.group.id}"
+          url: "#{config.apiPrefix}/memberships/report.csv?group_id=#{$scope.group.id}"
           filename: filename
         DownloadCSV(params)
 
