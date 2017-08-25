@@ -33,6 +33,7 @@ module.exports =
 
     $scope.updateGroup = () ->
       Records.groups.findOrFetchById(groupId).then (group) ->
+        console.log group
         group.save()
         Toast.show('You updated '+group.name)
         $scope.cancel()
