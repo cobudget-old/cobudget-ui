@@ -28,13 +28,8 @@
           </md-select>
         </md-input-container>
         <md-input-container class="admin-page__email-setting">
-          <md-checkbox
-            name="subscribedToEmailNotifications"
-            ng-model="group.emails"
-            aria-label="subscribed to email notifications"
-            class="admin-page__checkbox">
-            Send group funders email notifications?
-          </md-checkbox>
+          <label class="admin-page__email-setting-label">Send group funders email notifications?</label>
+          <md-switch ng-model="group.emails">{{group.emails ? "Yes" : "No"}}</md-switch>
         </md-input-container>
         <div layout="column" layout-align="center space-between" class="layout-align-center-stretch layout-column">
           <md-button class="md-raised md-primary admin-page__form-btn" type="submit">update group</md-button>
